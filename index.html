@@ -609,174 +609,155 @@
     salivaScan_pca.json
 -->
 
-<script type="module">
+<!-- 
+  REPLACE everything from <script type="module"> to </script>
+  at the bottom of index.html with this block.
+  
+  Key changes:
+  - Uses UMD ort (regular script tag, never fails silently)
+  - Upload works regardless of model load status
+  - Errors shown in UI, not just console
+-->
 
-// ── 1. Load onnxruntime-web from CDN (no install needed) ──────────────────
-import * as ort from 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.21.0/dist/esm/ort.min.js';
+<script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.19.0/dist/ort.min.js"></script>
+<script>
 
-// Tell ort where to find its WebAssembly worker files (must match CDN version)
-ort.env.wasm.wasmPaths = 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.21.0/dist/';
+// ── State ─────────────────────────────────────────────────────────────────
+var ortSession  = null;
+var pcaData     = null;
+var uploadedData = null;
+var currentLang  = 'en';
+var modelLoading = false;
 
-// ── 2. State ──────────────────────────────────────────────────────────────
-let ortSession = null;   // loaded once, reused for every inference
-let pcaData    = null;   // { mean: float[], components: float[][] }
-let uploadedData = null; // raw absorbance array from the user's file
-let currentLang  = 'en';
-
-// ── 3. Load model files on page start ────────────────────────────────────
+// ── Load model on page start ──────────────────────────────────────────────
 async function loadModel() {
+  if (modelLoading || ortSession) return;
+  modelLoading = true;
   try {
-    // Both files are in the same repo folder as index.html
-    const [session, pca] = await Promise.all([
+    ort.env.wasm.wasmPaths = 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.19.0/dist/';
+
+    var results = await Promise.all([
       ort.InferenceSession.create('./salivaScan_ann.onnx', {
-        executionProviders: ['wasm'],   // WebAssembly — works everywhere
+        executionProviders: ['wasm']
       }),
-      fetch('./salivaScan_pca.json').then(r => r.json()),
+      fetch('./salivaScan_pca.json').then(function(r) {
+        if (!r.ok) throw new Error('salivaScan_pca.json not found');
+        return r.json();
+      })
     ]);
 
-    ortSession = session;
-    pcaData    = pca;
-
-    // Update button text to show model is ready
-    const btn = document.getElementById('analyzeBtn');
-    btn.querySelector('[data-i18n="btn_analyze"]').textContent =
-      i18n[currentLang]?.btn_analyze ?? 'Analyze Spectrum';
-    console.log(`✓ Model loaded — expects ${pca.n_features} absorbance values`);
+    ortSession = results[0];
+    pcaData    = results[1];
+    console.log('Model ready. Expects ' + pcaData.n_features + ' spectral points.');
 
   } catch (err) {
     console.error('Model load failed:', err);
-    // Graceful fallback: show a warning but don't crash the page
-    document.getElementById('analyzeBtn').title =
-      'Model files not found. Check salivaScan_ann.onnx and salivaScan_pca.json are in the repo.';
+    showModelError('Model files not found on server. Check salivaScan_ann.onnx and salivaScan_pca.json are in the GitHub repo.');
   }
+  modelLoading = false;
 }
 
-// ── 4. PCA projection (replaces sklearn in the browser) ──────────────────
-// projection = (x - mean) · components^T
-// Returns Float32Array of length n_components (6)
-function applyPCA(spectrum) {
-  const mean       = pcaData.mean;
-  const components = pcaData.components; // shape [6][n_features]
-  const n          = components.length;  // 6
+function showModelError(msg) {
+  var card = document.getElementById('resultsCard');
+  card.classList.add('show');
+  document.getElementById('resultIcon').textContent  = '⚠';
+  document.getElementById('resultIcon').className    = 'result-icon medium';
+  document.getElementById('resultText').textContent  = msg;
+  document.getElementById('resultText').className    = 'result-value medium';
+  document.getElementById('confidenceFill').style.width = '0%';
+  document.getElementById('confidencePct').textContent  = '';
+  document.getElementById('metaPoints').textContent  = '—';
+  document.getElementById('metaRange').textContent   = '—';
+}
 
-  // Validate input length matches training data
+// ── PCA projection ────────────────────────────────────────────────────────
+function applyPCA(spectrum) {
+  var mean       = pcaData.mean;
+  var components = pcaData.components;
+  var n          = components.length;
+
   if (spectrum.length !== mean.length) {
     throw new Error(
-      `Spectrum has ${spectrum.length} points but model expects ${mean.length}. ` +
-      `Check that your CSV covers the full 399–4000 cm⁻¹ range.`
+      'Spectrum has ' + spectrum.length + ' points but model expects ' +
+      mean.length + '. Check your CSV covers 399–4000 cm⁻¹.'
     );
   }
 
-  // Centre the spectrum
-  const centered = spectrum.map((v, i) => v - mean[i]);
-
-  // Project onto each principal component (dot product)
-  const projected = new Float32Array(n);
-  for (let c = 0; c < n; c++) {
-    let dot = 0;
-    const comp = components[c];
-    for (let i = 0; i < centered.length; i++) {
-      dot += comp[i] * centered[i];
-    }
+  var centered   = spectrum.map(function(v, i) { return v - mean[i]; });
+  var projected  = new Float32Array(n);
+  for (var c = 0; c < n; c++) {
+    var dot  = 0;
+    var comp = components[c];
+    for (var i = 0; i < centered.length; i++) dot += comp[i] * centered[i];
     projected[c] = dot;
   }
   return projected;
 }
 
-// ── 5. Run inference ──────────────────────────────────────────────────────
+// ── Run inference ─────────────────────────────────────────────────────────
 async function runInference(spectrum) {
-  const pcaInput = applyPCA(spectrum);
-
-  // Wrap in an ONNX tensor: shape [1, 6] (batch of 1, 6 PCA components)
-  const tensor = new ort.Tensor('float32', pcaInput, [1, 6]);
-
-  // Run the model — input name must match what we set in torch.onnx.export()
-  const results = await ortSession.run({ pca_components: tensor });
-
-  // Output is normalised glucose 0–1 (1 = 500 mg/dL in your training data)
-  const score = results['glucose_score'].data[0];
-  return score;
+  var pcaInput = applyPCA(spectrum);
+  var tensor   = new ort.Tensor('float32', pcaInput, [1, 6]);
+  var results  = await ortSession.run({ pca_components: tensor });
+  return results['diabetes_probability'].data[0];
 }
 
-// ── 6. Main analyze function (replaces the old mock setTimeout) ───────────
-window.analyze = async function () {
+// ── Analyze ───────────────────────────────────────────────────────────────
+window.analyze = async function() {
   if (!uploadedData) return;
 
-  // Show spinner, disable button
   document.getElementById('spinner').classList.add('show');
   document.getElementById('analyzeBtn').disabled = true;
   document.getElementById('resultsCard').classList.remove('show');
 
   try {
-    // If model isn't loaded yet (slow connection), wait a moment and retry
     if (!ortSession || !pcaData) {
       await loadModel();
-      if (!ortSession) throw new Error('Model could not be loaded.');
+      if (!ortSession) throw new Error('Model could not be loaded. See above.');
     }
 
-    const score = await runInference(uploadedData);
-
-    // score is normalised glucose (0–1).
-    // Clinical threshold: 126 mg/dL fasting = 126/500 = 0.252
-    // We display risk in three bands:
-    //   < 0.252  → low risk (below diabetic threshold)
-    //   0.252–0.35 → uncertain / pre-diabetic range
-    //   > 0.35   → elevated risk
+    var score = await runInference(uploadedData);
     renderResult(score, uploadedData.length);
 
   } catch (err) {
     console.error('Inference error:', err);
-    alert('Analysis failed: ' + err.message);
+    showModelError(err.message);
   } finally {
     document.getElementById('spinner').classList.remove('show');
     document.getElementById('analyzeBtn').disabled = false;
   }
 };
 
-// ── 7. Render result (updated to use real score thresholds) ───────────────
+// ── Render result ─────────────────────────────────────────────────────────
 function renderResult(score, numPoints) {
-  const t    = i18n[currentLang];
-  const card = document.getElementById('resultsCard');
-  const icon = document.getElementById('resultIcon');
-  const text = document.getElementById('resultText');
-  const fill = document.getElementById('confidenceFill');
-  const pct  = document.getElementById('confidencePct');
-
-  // Convert normalised score to mg/dL for display
-  const mgdl = Math.round(score * 500);
+  var t    = i18n[currentLang] || i18n['en'];
+  var card = document.getElementById('resultsCard');
+  var icon = document.getElementById('resultIcon');
+  var text = document.getElementById('resultText');
+  var fill = document.getElementById('confidenceFill');
+  var pct  = document.getElementById('confidencePct');
 
   document.getElementById('metaPoints').textContent = numPoints.toLocaleString();
   document.getElementById('metaRange').textContent  = '399 – 4000 cm⁻¹';
 
-  if (score < 0.252) {
-    // Below fasting glucose threshold of 126 mg/dL
-    const confidence = Math.round((1 - score / 0.252) * 100);
-    icon.className        = 'result-icon low';  icon.textContent = '✓';
+  var confidence = Math.round(Math.abs(score - 0.5) * 200);
+
+  if (score < 0.5) {
+    icon.className        = 'result-icon low';
+    icon.textContent      = '✓';
     text.className        = 'result-value low';
-    text.textContent      = t.low_risk;
+    text.textContent      = t.low_risk  || 'Low risk of diabetes detected';
     fill.className        = 'confidence-fill';
     fill.style.width      = confidence + '%';
-    pct.textContent       = `~${mgdl} mg/dL · ${confidence}% confidence`;
-
-  } else if (score < 0.35) {
-    // 126–175 mg/dL — uncertain / pre-diabetic range
-    const confidence = Math.round(((score - 0.252) / (0.35 - 0.252)) * 100);
-    icon.className        = 'result-icon medium'; icon.textContent = '?';
-    text.className        = 'result-value medium';
-    text.textContent      = t.medium_risk;
-    fill.className        = 'confidence-fill medium';
-    fill.style.width      = confidence + '%';
-    pct.textContent       = `~${mgdl} mg/dL`;
-
+    pct.textContent       = confidence + '% confidence';
   } else {
-    // Above 175 mg/dL — elevated risk
-    const confidence = Math.round(Math.min((score - 0.35) / 0.65 * 100 + 50, 99));
-    icon.className        = 'result-icon high';   icon.textContent = '!';
+    icon.className        = 'result-icon high';
+    icon.textContent      = '!';
     text.className        = 'result-value high';
-    text.textContent      = t.high_risk;
+    text.textContent      = t.high_risk || 'Elevated risk — consult a doctor';
     fill.className        = 'confidence-fill high-risk';
     fill.style.width      = confidence + '%';
-    pct.textContent       = `~${mgdl} mg/dL`;
+    pct.textContent       = confidence + '% confidence';
   }
 
   card.classList.add('show');
@@ -784,34 +765,40 @@ function renderResult(score, numPoints) {
   card.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-// ── 8. File handling ──────────────────────────────────────────────────────
+// ── File handling ─────────────────────────────────────────────────────────
 window.handleFile = function(e) {
-  const file = e.target.files[0];
+  var file = e.target.files[0];
   if (!file) return;
+
   document.getElementById('fileName').textContent = file.name;
   document.getElementById('fileMeta').textContent =
-    `${(file.size / 1024).toFixed(1)} KB · ${file.name.split('.').pop().toUpperCase()}`;
-  document.getElementById('fileIcon').textContent = file.name.endsWith('.json') ? '{ }' : '📊';
+    (file.size / 1024).toFixed(1) + ' KB · ' +
+    file.name.split('.').pop().toUpperCase();
+  document.getElementById('fileIcon').textContent =
+    file.name.endsWith('.json') ? '{ }' : '📊';
   document.getElementById('fileInfo').classList.add('show');
   document.getElementById('analyzeBtn').disabled = false;
 
-  const reader = new FileReader();
-  reader.onload = (ev) => {
+  var reader = new FileReader();
+  reader.onload = function(ev) {
     try {
-      const text = ev.target.result;
+      var text = ev.target.result;
+      var data;
       if (file.name.endsWith('.json')) {
-        const parsed = JSON.parse(text);
-        uploadedData = Array.isArray(parsed) ? parsed : Object.values(parsed);
+        var parsed = JSON.parse(text);
+        data = Array.isArray(parsed) ? parsed : Object.values(parsed);
       } else {
-        // CSV: extract the absorbance column (second column if two columns, else first)
-        const lines = text.trim().split('\n').filter(l => l.trim() && !/[a-zA-Z]/.test(l));
-        uploadedData = lines.map(line => {
-          const parts = line.split(',').map(p => parseFloat(p.trim()));
-          return parts.length >= 2 ? parts[1] : parts[0]; // absorbance
-        }).filter(v => !isNaN(v));
+        var lines = text.trim().split('\n').filter(function(l) {
+          return l.trim() && !/[a-df-z]/i.test(l);
+        });
+        data = lines.map(function(line) {
+          var parts = line.split(',').map(function(p) { return parseFloat(p.trim()); });
+          return parts.length >= 2 ? parts[1] : parts[0];
+        }).filter(function(v) { return !isNaN(v); });
       }
-      console.log(`Loaded ${uploadedData.length} spectral points`);
-    } catch (err) {
+      uploadedData = data;
+      console.log('Loaded ' + data.length + ' spectral points');
+    } catch(err) {
       console.error('File parse error:', err);
       uploadedData = null;
     }
@@ -827,29 +814,30 @@ window.clearFile = function() {
   uploadedData = null;
 };
 
-// ── 9. Spectrum chart ─────────────────────────────────────────────────────
+// ── Spectrum chart ────────────────────────────────────────────────────────
 window.drawChart = function(data) {
-  const canvas = document.getElementById('spectrumChart');
-  const ctx    = canvas.getContext('2d');
-  canvas.width = canvas.offsetWidth || 600;
+  var canvas = document.getElementById('spectrumChart');
+  var ctx    = canvas.getContext('2d');
+  canvas.width  = canvas.offsetWidth || 600;
   canvas.height = 100;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  const pts = (data && data.length > 10) ? data : generateMockSpectrum();
-  const w = canvas.width, h = canvas.height;
-  const max = Math.max(...pts), min = Math.min(...pts);
-  const range = max - min || 1;
+  var pts = (data && data.length > 10) ? data : generateMockSpectrum();
+  var w = canvas.width, h = canvas.height;
+  var max = Math.max.apply(null, pts);
+  var min = Math.min.apply(null, pts);
+  var range = max - min || 1;
 
   ctx.beginPath();
-  pts.forEach((v, i) => {
-    const x = (i / (pts.length - 1)) * w;
-    const y = h - ((v - min) / range) * (h * 0.85) - h * 0.07;
+  pts.forEach(function(v, i) {
+    var x = (i / (pts.length - 1)) * w;
+    var y = h - ((v - min) / range) * (h * 0.85) - h * 0.07;
     i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
   });
   ctx.strokeStyle = '#2563EB'; ctx.lineWidth = 1.5; ctx.stroke();
 
   ctx.lineTo(w, h); ctx.lineTo(0, h); ctx.closePath();
-  const grad = ctx.createLinearGradient(0, 0, 0, h);
+  var grad = ctx.createLinearGradient(0, 0, 0, h);
   grad.addColorStop(0, 'rgba(37,99,235,0.15)');
   grad.addColorStop(1, 'rgba(37,99,235,0)');
   ctx.fillStyle = grad; ctx.fill();
@@ -857,50 +845,52 @@ window.drawChart = function(data) {
   ctx.fillStyle = '#6B6878'; ctx.font = '10px Sora,sans-serif';
   ctx.fillText('4000', 4, h - 4);
   ctx.fillText('400 cm⁻¹', w - 52, h - 4);
-  ctx.fillText('Absorbance', 4, 12);
 };
 
 function generateMockSpectrum() {
-  return Array.from({ length: 800 }, (_, i) => {
-    let v = 0.5 + 0.05 * Math.sin(i * 0.05);
-    if (i > 150 && i < 250) v += 0.3 * Math.exp(-Math.pow(i - 200, 2) / 500);
-    if (i > 350 && i < 420) v += 0.4 * Math.exp(-Math.pow(i - 380, 2) / 300);
+  return Array.from({ length: 800 }, function(_, i) {
+    var v = 0.5 + 0.05 * Math.sin(i * 0.05);
+    if (i > 150 && i < 250) v += 0.3 * Math.exp(-Math.pow(i-200,2)/500);
+    if (i > 350 && i < 420) v += 0.4 * Math.exp(-Math.pow(i-380,2)/300);
     return v + (Math.random() - 0.5) * 0.02;
   });
 }
 
-// ── 10. Drag and drop ────────────────────────────────────────────────────
-const uc = document.getElementById('uploadCard');
-uc.addEventListener('dragover',  e => { e.preventDefault(); uc.classList.add('drag-over'); });
-uc.addEventListener('dragleave', () => uc.classList.remove('drag-over'));
-uc.addEventListener('drop', e => {
+// ── Drag and drop ─────────────────────────────────────────────────────────
+var uc = document.getElementById('uploadCard');
+uc.addEventListener('dragover',  function(e) { e.preventDefault(); uc.classList.add('drag-over'); });
+uc.addEventListener('dragleave', function()  { uc.classList.remove('drag-over'); });
+uc.addEventListener('drop', function(e) {
   e.preventDefault(); uc.classList.remove('drag-over');
   if (e.dataTransfer.files[0]) {
     handleFile({ target: { files: e.dataTransfer.files } });
   }
 });
 
-// ── 11. Language switcher ────────────────────────────────────────────────
+// ── Language switcher ─────────────────────────────────────────────────────
 window.setLang = function(lang) {
   currentLang = lang;
-  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-  document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+  document.querySelectorAll('.lang-btn').forEach(function(b) {
+    b.classList.remove('active');
+  });
+  var btn = document.querySelector('.lang-btn[onclick="setLang(\'' + lang + '\')"]');
+  if (btn) btn.classList.add('active');
   document.documentElement.lang = lang;
-  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  document.documentElement.dir  = lang === 'ar' ? 'rtl' : 'ltr';
   applyTranslations();
 };
 
 function applyTranslations() {
-  const t = i18n[currentLang];
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
+  var t = i18n[currentLang] || i18n['en'];
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    var key = el.getAttribute('data-i18n');
     if (t[key] !== undefined) el.innerHTML = t[key];
   });
 }
 
 // ── Start ─────────────────────────────────────────────────────────────────
 applyTranslations();
-loadModel();  // begin loading model files immediately in the background
+loadModel();
 
 </script>
 </body>

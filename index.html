@@ -802,13 +802,15 @@ async function runInference(spectrum) {
   var inputName  = ortSession.inputNames[0];
   var outputName = ortSession.outputNames[0];
 
-  var tensor  = new ort.Tensor('float32', new Float32Array(spectrum), [1, spectrum.length]);
-  var feeds   = {};
+  // Rank 1 — flat array, no batch dimension
+  var tensor = new ort.Tensor('float32', new Float32Array(spectrum), [spectrum.length]);
+  var feeds  = {};
   feeds[inputName] = tensor;
 
   var results = await ortSession.run(feeds);
   var out     = results[outputName].data;
-  // Single value or two-class output
+
+  // Could be scalar, single value, or two-class
   return out.length === 1 ? out[0] : out[1];
 }
 

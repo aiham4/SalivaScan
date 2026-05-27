@@ -768,79 +768,60 @@ var currentLang  = 'en';
 var modelLoading = false;
 
 // ── Load model on page start ──────────────────────────────────────────────
+// ── Load model (single ONNX file, no pca.json needed) ─────────────────────
 async function loadModel() {
   if (modelLoading || ortSession) return;
   modelLoading = true;
   try {
-    ort.env.wasm.wasmPaths = 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.19.0/dist/';
+    ort.env.wasm.wasmPaths =
+      'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.19.0/dist/';
 
-    var results = await Promise.all([
-      ort.InferenceSession.create('./salivaScan_ann.onnx', {
-        executionProviders: ['wasm']
-      }),
-      fetch('./salivaScan_pca.json').then(function(r) {
-        if (!r.ok) throw new Error('salivaScan_pca.json not found');
-        return r.json();
-      })
-    ]);
+    ortSession = await ort.InferenceSession.create('./salivaScan_ann.onnx', {
+      executionProviders: ['wasm']
+    });
 
-    ortSession = results[0];
-    pcaData    = results[1];
-    console.log('Model ready. Expects ' + pcaData.n_features + ' spectral points.');
+    // Auto-detect input/output names — log so we can verify
+    console.log('Model loaded.');
+    console.log('Input names :', ortSession.inputNames);
+    console.log('Output names:', ortSession.outputNames);
+
+    // Store names for inference
+    window._inputName  = ortSession.inputNames[0];
+    window._outputName = ortSession.outputNames[0];
+
+    // Detect expected input size from model metadata
+    var inputMeta = ortSession.inputMetadata || {};
+    console.log('Input metadata:', inputMeta);
 
   } catch (err) {
     console.error('Model load failed:', err);
-    showModelError('Model files not found on server. Check salivaScan_ann.onnx and salivaScan_pca.json are in the GitHub repo.');
+    showModelError(
+      'Could not load model. Make sure salivaScan_ann.onnx is in the repo.'
+    );
   }
   modelLoading = false;
 }
 
-function showModelError(msg) {
-  var card = document.getElementById('resultsCard');
-  card.classList.add('show');
-  document.getElementById('resultIcon').textContent  = '⚠';
-  document.getElementById('resultIcon').className    = 'result-icon medium';
-  document.getElementById('resultText').textContent  = msg;
-  document.getElementById('resultText').className    = 'result-value medium';
-  document.getElementById('confidenceFill').style.width = '0%';
-  document.getElementById('confidencePct').textContent  = '';
-  document.getElementById('metaPoints').textContent  = '—';
-  document.getElementById('metaRange').textContent   = '—';
-}
-
-// ── PCA projection ────────────────────────────────────────────────────────
-function applyPCA(spectrum) {
-  var mean       = pcaData.mean;
-  var components = pcaData.components;
-  var n          = components.length;
-
-  if (spectrum.length !== mean.length) {
-    throw new Error(
-      'Spectrum has ' + spectrum.length + ' points but model expects ' +
-      mean.length + '. Check your CSV covers 399–4000 cm⁻¹.'
-    );
-  }
-
-  var centered   = spectrum.map(function(v, i) { return v - mean[i]; });
-  var projected  = new Float32Array(n);
-  for (var c = 0; c < n; c++) {
-    var dot  = 0;
-    var comp = components[c];
-    for (var i = 0; i < centered.length; i++) dot += comp[i] * centered[i];
-    projected[c] = dot;
-  }
-  return projected;
-}
-
-// ── Run inference ─────────────────────────────────────────────────────────
+// ── Run inference (raw spectrum → model → probability) ─────────────────────
 async function runInference(spectrum) {
-  var pcaInput = applyPCA(spectrum);
-  var tensor   = new ort.Tensor('float32', pcaInput, [1, 6]);
-  var results  = await ortSession.run({ pca_components: tensor });
-  return results['diabetes_probability'].data[0];
-}
+  var inputName  = window._inputName  || ortSession.inputNames[0];
+  var outputName = window._outputName || ortSession.outputNames[0];
 
-// ── Analyze ───────────────────────────────────────────────────────────────
+  // Pass spectrum as float32, shape [1, n_features]
+  var inputArray = new Float32Array(spectrum);
+  var tensor     = new ort.Tensor('float32', inputArray, [1, spectrum.length]);
+
+  var feeds   = {};
+  feeds[inputName] = tensor;
+
+  var results = await ortSession.run(feeds);
+  var output  = results[outputName].data;
+
+  // Output might be [probability] or [prob_negative, prob_positive]
+  // If two values, take the second (diabetic class)
+  return output.length === 1 ? output[0] : output[1];
+}
+  // ── Analyze ───────────────────────────────────────────────────────────────
 window.analyze = async function() {
   if (!uploadedData) return;
 

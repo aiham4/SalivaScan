@@ -799,19 +799,9 @@ async function loadModel() {
 
 // ── Inference — passes raw spectrum, no PCA ───────────────────────────────
 async function runInference(spectrum) {
-  var inputName  = ortSession.inputNames[0];
-  var outputName = ortSession.outputNames[0];
-
-  // Rank 1 — flat array, no batch dimension
-  var tensor = new ort.Tensor('float32', new Float32Array(spectrum), [spectrum.length]);
-  var feeds  = {};
-  feeds[inputName] = tensor;
-
-  var results = await ortSession.run(feeds);
-  var out     = results[outputName].data;
-
-  // Could be scalar, single value, or two-class
-  return out.length === 1 ? out[0] : out[1];
+  var tensor = new ort.Tensor('float32', new Float32Array(spectrum), [3736]);
+  var results = await ortSession.run({ input: tensor });
+  return results['type2_confidence'].cpuData[0];
 }
 
 // ── Analyze ───────────────────────────────────────────────────────────────

@@ -799,11 +799,10 @@ async function loadModel() {
 
 // ── Inference — passes raw spectrum, no PCA ───────────────────────────────
 async function runInference(spectrum) {
-  var tensor = new ort.Tensor('float32', new Float32Array(spectrum), [3736]);
+  var tensor  = new ort.Tensor('float32', new Float32Array(spectrum), [3736]);
   var results = await ortSession.run({ input: tensor });
-  return results['type2_confidence'].cpuData[0];
+  return 1 - results['type2_confidence'].cpuData[0];  // ← flip it
 }
-
 // ── Analyze ───────────────────────────────────────────────────────────────
 window.analyze = async function() {
   if (!uploadedData) return;

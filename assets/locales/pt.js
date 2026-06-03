@@ -1,0 +1,53 @@
+/* Português — revisado por: ____  (escreve o teu nome após rever)
+   Variante: PT genérico, adequado a PT-PT e PT-BR. Ajusta termos se necessário. */
+window.SS_I18N = window.SS_I18N || {};
+window.SS_I18N.pt = {
+  nav_tool: 'Ferramenta', nav_how: 'Como funciona', nav_learn: 'Saber mais',
+  theme_toggle: 'Alternar modo escuro',
+
+  hero_eyebrow: 'Protótipo de investigação · TU/e Grupo 5',
+  hero_title: 'Rastreio <em>não invasivo</em> de diabetes a partir de espetros de saliva',
+  hero_desc: 'Carrega um espetro infravermelho ATR-FTIR de uma amostra de saliva e obtém de imediato uma estimativa de rastreio por aprendizagem automática do risco de diabetes tipo 2.',
+  hero_disclaimer: 'Esta ferramenta é apenas um protótipo de investigação. Não fornece um diagnóstico médico. Consulta sempre um profissional de saúde.',
+  stat_samples: 'Amostras de treino', stat_method: 'Método espetroscópico', stat_task: 'Tarefa de classificação',
+
+  model_loading: 'A carregar o modelo de IA…', model_ready: 'Modelo de IA pronto.',
+  model_error: 'Não foi possível carregar o modelo.',
+  model_wait: 'O modelo ainda está a carregar — aguarda um momento.',
+  retry: 'Tentar novamente',
+
+  tool_eyebrow: 'Analisador de espetros', tool_title: 'Carrega o teu ficheiro de espetro',
+  tool_subtitle: 'Formatos aceites: CSV (número de onda, absorvância) ou um array JSON de valores de absorvância entre 399 e 4000 cm⁻¹.',
+  upload_title: 'Arrasta o ficheiro para aqui ou clica para procurar',
+  upload_sub: 'O teu ficheiro nunca sai do navegador — nada é enviado nem armazenado.',
+  btn_analyze: 'Analisar espetro',
+  result_label: 'Resultado do rastreio', confidence_label: 'Pontuação de confiança',
+  meta_points: 'Pontos espetrais', meta_range: 'Intervalo de número de onda', meta_model: 'Modelo',
+  chart_title: 'Espetro infravermelho carregado',
+  result_disclaimer: 'Este resultado provém de um modelo de investigação treinado com 1040 espetros de saliva ATR-FTIR. Não é um diagnóstico clínico. A composição da saliva é afetada pela dieta, hidratação e saúde oral. Consulta um profissional de saúde para um teste adequado.',
+  low_risk: 'Baixo risco de diabetes tipo 2 detetado',
+  high_risk: 'Risco elevado — consulta um médico',
+  medium_risk: 'Incerto — recomenda-se acompanhamento',
+
+  how_eyebrow: 'O processo', how_title: 'Como funciona?',
+  how_subtitle: 'Da amostra de saliva ao resultado em quatro passos.',
+  step1_title: 'Recolher saliva', step1_desc: 'É recolhida uma pequena amostra de saliva em jejum. Sem agulhas, sem sangue.',
+  step2_title: 'Leitura ATR-FTIR', step2_desc: 'A amostra é analisada com espetroscopia de infravermelhos para captar a sua impressão molecular.',
+  step3_title: 'Carregar espetro', step3_desc: 'Exporta o espetro como ficheiro CSV ou JSON e carrega-o aqui.',
+  step4_title: 'Rastreio com IA', step4_desc: 'A rede neuronal analisa o padrão espetral e produz uma pontuação de risco.',
+
+  edu_eyebrow: 'Diabetes tipo 2 — saber mais', edu_title: 'Compreender a diabetes tipo 2',
+  learn_more: 'Ler mais →',
+  edu1_title: 'O que é a diabetes tipo 2?', edu1_desc: 'Uma doença crónica em que o corpo não usa a insulina de forma eficaz, elevando a glicose no sangue. Representa mais de 90% dos casos de diabetes no mundo.',
+  edu2_title: 'Fatores de risco', edu2_desc: 'Excesso de peso, inatividade física, história familiar, idade acima dos 45 anos e diabetes gestacional anterior. Mudanças no estilo de vida reduzem o risco.',
+  edu3_title: 'Porquê a saliva?', edu3_desc: 'A saliva contém sinais bioquímicos de alterações metabólicas. A ATR-FTIR consegue detetar diferenças moleculares entre saliva diabética e não diabética.',
+  edu4_title: 'Prevenção', edu4_desc: 'Atividade regular (150 min/semana), uma dieta equilibrada com pouco açúcar, um peso saudável e não fumar reduzem bastante o risco.',
+  edu5_title: 'Sobre esta ferramenta', edu5_desc: 'Um protótipo CBL multidisciplinar da TU/e, treinado com o conjunto de dados de saliva SEDENA (México). Não é um dispositivo médico certificado.',
+  edu6_title: 'Faz o teste adequado', edu6_desc: 'O rastreio oficial usa glicose em jejum (≥126 mg/dL) ou HbA1c (≥6,5%). Em caso de dúvida, contacta o teu médico — a deteção precoce ajuda.',
+
+  footer_note: 'Protótipo de investigação — não é um dispositivo médico. Apenas para fins educativos.',
+
+  learn_hub_title: 'Saber mais', learn_hub_sub: 'Leituras de contexto, a ciência por detrás da ferramenta e recursos selecionados.',
+  learn_back: '← Voltar à ferramenta',
+  res_title: 'Recursos', res_sub: 'Vídeos e artigos selecionados para aprofundar.'
+};

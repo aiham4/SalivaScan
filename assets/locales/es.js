@@ -1,0 +1,52 @@
+/* Español — revisado por: ____  (escribe tu nombre tras revisar) */
+window.SS_I18N = window.SS_I18N || {};
+window.SS_I18N.es = {
+  nav_tool: 'Herramienta', nav_how: 'Cómo funciona', nav_learn: 'Más información',
+  theme_toggle: 'Cambiar modo oscuro',
+
+  hero_eyebrow: 'Prototipo de investigación · TU/e Grupo 5',
+  hero_title: 'Cribado <em>no invasivo</em> de diabetes mediante espectros de saliva',
+  hero_desc: 'Sube un espectro infrarrojo ATR-FTIR de una muestra de saliva y obtén al instante una estimación de cribado por aprendizaje automático del riesgo de diabetes tipo 2.',
+  hero_disclaimer: 'Esta herramienta es solo un prototipo de investigación. No proporciona un diagnóstico médico. Consulta siempre a un profesional sanitario.',
+  stat_samples: 'Muestras de entrenamiento', stat_method: 'Método espectroscópico', stat_task: 'Tarea de clasificación',
+
+  model_loading: 'Cargando el modelo de IA…', model_ready: 'Modelo de IA listo.',
+  model_error: 'No se pudo cargar el modelo.',
+  model_wait: 'El modelo aún se está cargando — espera un momento.',
+  retry: 'Reintentar',
+
+  tool_eyebrow: 'Analizador de espectros', tool_title: 'Sube tu archivo de espectro',
+  tool_subtitle: 'Formatos aceptados: CSV (número de onda, absorbancia) o un arreglo JSON de valores de absorbancia entre 399 y 4000 cm⁻¹.',
+  upload_title: 'Arrastra el archivo aquí o haz clic para explorar',
+  upload_sub: 'Tu archivo nunca sale de tu navegador — no se sube ni se almacena nada.',
+  btn_analyze: 'Analizar espectro',
+  result_label: 'Resultado del cribado', confidence_label: 'Puntuación de confianza',
+  meta_points: 'Puntos espectrales', meta_range: 'Rango de número de onda', meta_model: 'Modelo',
+  chart_title: 'Espectro infrarrojo cargado',
+  result_disclaimer: 'Este resultado proviene de un modelo de investigación entrenado con 1.040 espectros de saliva ATR-FTIR. No es un diagnóstico clínico. La composición de la saliva se ve afectada por la dieta, la hidratación y la salud bucal. Consulta a un profesional médico para una prueba adecuada.',
+  low_risk: 'Bajo riesgo de diabetes tipo 2 detectado',
+  high_risk: 'Riesgo elevado — consulta a un médico',
+  medium_risk: 'Incierto — se recomienda seguimiento',
+
+  how_eyebrow: 'El proceso', how_title: '¿Cómo funciona?',
+  how_subtitle: 'De la muestra de saliva al resultado en cuatro pasos.',
+  step1_title: 'Recoger saliva', step1_desc: 'Se recoge una pequeña muestra de saliva en ayunas. Sin agujas ni sangre.',
+  step2_title: 'Escaneo ATR-FTIR', step2_desc: 'La muestra se escanea con espectroscopía infrarroja para capturar su huella molecular.',
+  step3_title: 'Subir espectro', step3_desc: 'Exporta el espectro como archivo CSV o JSON y súbelo aquí.',
+  step4_title: 'Cribado con IA', step4_desc: 'La red neuronal analiza el patrón espectral y produce una puntuación de riesgo.',
+
+  edu_eyebrow: 'Diabetes tipo 2 — saber más', edu_title: 'Entender la diabetes tipo 2',
+  learn_more: 'Leer más →',
+  edu1_title: '¿Qué es la diabetes tipo 2?', edu1_desc: 'Una enfermedad crónica en la que el cuerpo no usa la insulina de forma eficaz, lo que eleva la glucosa en sangre. Representa más del 90% de los casos de diabetes en el mundo.',
+  edu2_title: 'Factores de riesgo', edu2_desc: 'Sobrepeso, inactividad física, antecedentes familiares, edad superior a 45 años y diabetes gestacional previa. Cambiar el estilo de vida reduce el riesgo.',
+  edu3_title: '¿Por qué la saliva?', edu3_desc: 'La saliva contiene señales bioquímicas de cambios metabólicos. La ATR-FTIR puede detectar diferencias moleculares entre saliva diabética y no diabética.',
+  edu4_title: 'Prevención', edu4_desc: 'La actividad regular (150 min/semana), una dieta equilibrada baja en azúcar, un peso saludable y no fumar reducen notablemente el riesgo.',
+  edu5_title: 'Sobre esta herramienta', edu5_desc: 'Un prototipo CBL multidisciplinar de la TU/e, entrenado con el conjunto de datos de saliva SEDENA (México). No es un dispositivo médico certificado.',
+  edu6_title: 'Hazte una prueba adecuada', edu6_desc: 'El cribado oficial usa glucosa en ayunas (≥126 mg/dL) o HbA1c (≥6,5%). Si te preocupa, contacta a tu médico — la detección temprana ayuda.',
+
+  footer_note: 'Prototipo de investigación — no es un dispositivo médico. Solo con fines educativos.',
+
+  learn_hub_title: 'Más información', learn_hub_sub: 'Lecturas de fondo, la ciencia tras la herramienta y recursos seleccionados.',
+  learn_back: '← Volver a la herramienta',
+  res_title: 'Recursos', res_sub: 'Vídeos y artículos seleccionados para profundizar.'
+};

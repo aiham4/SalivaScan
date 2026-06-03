@@ -1,0 +1,103 @@
+/* =============================================================================
+   tokens.css — colours, themes, spacing, type scale
+   The ONLY place colours are defined. Components reference these variables.
+============================================================================= */
+
+:root {
+  /* type */
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-body: 'Sora', system-ui, sans-serif;
+
+  /* radii + shadow */
+  --radius: 16px;
+  --radius-sm: 8px;
+  --radius-pill: 50px;
+
+  /* spacing scale */
+  --sp-1: 0.5rem;
+  --sp-2: 0.75rem;
+  --sp-3: 1rem;
+  --sp-4: 1.5rem;
+  --sp-5: 2rem;
+  --sp-6: 3rem;
+  --sp-7: 4rem;
+  --sp-8: 5rem;
+
+  --maxw: 1100px;
+  --maxw-narrow: 900px;
+
+  /* accents (constant across themes) */
+  --accent: #2563EB;
+  --accent-strong: #1D4ED8;
+  --accent2: #059669;
+  --warn: #D97706;
+  --danger: #DC2626;
+
+  --transition: 0.2s ease;
+}
+
+/* ---- LIGHT (default) ------------------------------------------------------ */
+:root,
+[data-theme="light"] {
+  --bg: #F7F5F0;
+  --surface: #FFFFFF;
+  --surface2: #EEF0F4;
+  --border: #DDD8D0;
+  --text: #1A1A2E;
+  --text-muted: #6B6878;
+
+  --accent-light: #EFF6FF;
+  --accent2-light: #ECFDF5;
+  --warn-light: #FFFBEB;
+  --warn-border: #FCD34D;
+  --danger-light: #FEF2F2;
+
+  --shadow: 0 4px 24px rgba(26, 26, 46, 0.08);
+  --shadow-lg: 0 8px 48px rgba(26, 26, 46, 0.14);
+
+  /* the dark "Learn" band stays dark in light mode */
+  --band: #1A1A2E;
+  --band-text: #FFFFFF;
+  --band-muted: rgba(255, 255, 255, 0.6);
+  --band-card: rgba(255, 255, 255, 0.06);
+  --band-card-border: rgba(255, 255, 255, 0.1);
+}
+
+/* ---- DARK ----------------------------------------------------------------- */
+[data-theme="dark"] {
+  --bg: #121420;
+  --surface: #1B1E2E;
+  --surface2: #252939;
+  --border: #2F3447;
+  --text: #ECEAF4;
+  --text-muted: #9A98AC;
+
+  --accent: #5B8DEF;
+  --accent-strong: #7AA5F5;
+  --accent-light: rgba(91, 141, 239, 0.14);
+  --accent2: #34D399;
+  --accent2-light: rgba(52, 211, 153, 0.14);
+  --warn: #FBBF24;
+  --warn-light: rgba(251, 191, 36, 0.12);
+  --warn-border: rgba(251, 191, 36, 0.4);
+  --danger: #F87171;
+  --danger-light: rgba(248, 113, 113, 0.12);
+
+  --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 48px rgba(0, 0, 0, 0.55);
+
+  --band: #0C0E18;
+  --band-text: #ECEAF4;
+  --band-muted: rgba(236, 234, 244, 0.55);
+  --band-card: rgba(255, 255, 255, 0.04);
+  --band-card-border: rgba(255, 255, 255, 0.08);
+}
+
+/* avoid a flash of un-themed content before JS runs in dark OS */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --bg: #121420; --surface: #1B1E2E; --surface2: #252939;
+    --border: #2F3447; --text: #ECEAF4; --text-muted: #9A98AC;
+    --accent: #5B8DEF;
+  }
+}

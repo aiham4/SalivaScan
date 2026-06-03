@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Why Saliva? · SalivaScan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../assets/css/tokens.css"/>
+<link rel="stylesheet" href="../assets/css/styles.css"/>
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/theme.js"></script>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="../index.html"><span class="logo-dot"></span> SalivaScan</a>
+    <ul class="nav-links">
+      <li><a href="../index.html#analyzer" data-i18n="nav_tool">Tool</a></li>
+      <li><a href="../index.html#how" data-i18n="nav_how">How it works</a></li>
+      <li><a href="index.html" data-i18n="nav_learn">Learn</a></li>
+    </ul>
+    <div class="nav-controls">
+      <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">&#9790;</button>
+      <div class="lang-switcher"></div>
+    </div>
+  </div>
+</nav>
+
+<!-- ARTICLE BODY (English). Long-form text is not auto-translated. -->
+<main class="article">
+  <div class="breadcrumb"><a href="index.html" data-i18n="nav_learn">Learn</a> / Why Saliva?</div>
+  <h1>Why Saliva?</h1>
+  <p class="lead">Saliva carries a chemical snapshot of the body's metabolism &mdash; and unlike blood, it can be collected painlessly, anywhere, by anyone.</p>
+
+  <h2>A non-invasive window into metabolism</h2>
+  <p>Saliva contains glucose, proteins, lipids and other molecules whose concentrations shift when metabolism changes, as happens in Type 2 diabetes. Because collection needs no needle, no clinician and no special handling, it is well suited to large-scale, low-cost screening &mdash; especially where access to clinics or labs is limited.</p>
+
+  <h2>What ATR-FTIR actually measures</h2>
+  <p>ATR-FTIR (Attenuated Total Reflectance &ndash; Fourier Transform Infrared) spectroscopy shines infrared light at the sample. Different molecular bonds absorb specific infrared frequencies, producing a spectrum &mdash; effectively a molecular fingerprint across the 399&ndash;4000 cm&#8315;&sup1; range. Diabetic and non-diabetic saliva differ subtly across this fingerprint, in ways a trained model can learn to separate.</p>
+
+  <h2>Why a neural network</h2>
+  <p>The differences are spread across thousands of wavenumbers and are far too subtle to read by eye. A neural network trained on labelled spectra can pick up the combined pattern and turn a full spectrum into a single risk estimate.</p>
+
+  <h2>Honest limitations</h2>
+  <ul>
+    <li>Saliva composition is affected by diet, hydration, time of day and oral health.</li>
+    <li>The model was trained on one dataset (SEDENA, Mexico) and may not generalise to other populations or instruments.</li>
+    <li>It is a screening aid, not a diagnosis &mdash; positive results should always be confirmed with a clinical blood test.</li>
+  </ul>
+
+  <p class="source">Sources: add your cited spectroscopy and dataset references here for the final report.</p>
+</main>
+
+<footer><strong>SalivaScan</strong> &middot; <span data-i18n="footer_note">Research prototype &mdash; not a medical device.</span></footer>
+
+<script src="../assets/locales/en.js"></script>
+<script src="../assets/locales/nl.js"></script>
+<script src="../assets/locales/es.js"></script>
+<script src="../assets/locales/pt.js"></script>
+<script src="../assets/locales/ar.js"></script>
+<script src="../assets/locales/tr.js"></script>
+<script src="../assets/js/i18n.js"></script>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

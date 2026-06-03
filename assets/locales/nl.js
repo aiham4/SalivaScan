@@ -1,0 +1,52 @@
+/* Nederlands — review door: ____  (vul je naam in na controle) */
+window.SS_I18N = window.SS_I18N || {};
+window.SS_I18N.nl = {
+  nav_tool: 'Tool', nav_how: 'Hoe het werkt', nav_learn: 'Meer info',
+  theme_toggle: 'Donkere modus wisselen',
+
+  hero_eyebrow: 'Onderzoeksprototype · TU/e Groep 5',
+  hero_title: 'Niet-invasieve diabetes<em>screening</em> via speekselspectra',
+  hero_desc: 'Upload een ATR-FTIR-infraroodspectrum van een speekselmonster en krijg direct een machine-learning-schatting van het risico op diabetes type 2.',
+  hero_disclaimer: 'Dit hulpmiddel is uitsluitend een onderzoeksprototype. Het stelt geen medische diagnose. Raadpleeg altijd een zorgverlener.',
+  stat_samples: 'Trainingsmonsters', stat_method: 'Spectroscopiemethode', stat_task: 'Classificatietaak',
+
+  model_loading: 'AI-model wordt geladen…', model_ready: 'AI-model gereed.',
+  model_error: 'Het model kon niet worden geladen.',
+  model_wait: 'Het model wordt nog geladen — even geduld.',
+  retry: 'Opnieuw',
+
+  tool_eyebrow: 'Spectrumanalyser', tool_title: 'Upload je spectrumbestand',
+  tool_subtitle: 'Geaccepteerde formaten: CSV (golfgetal, absorptie) of een JSON-array met absorptiewaarden over 399–4000 cm⁻¹.',
+  upload_title: 'Sleep bestand hierheen of klik om te bladeren',
+  upload_sub: 'Je bestand verlaat nooit je browser — er wordt niets geüpload of opgeslagen.',
+  btn_analyze: 'Spectrum analyseren',
+  result_label: 'Screeningsresultaat', confidence_label: 'Betrouwbaarheidsscore',
+  meta_points: 'Spectraalpunten', meta_range: 'Golfgetalbereik', meta_model: 'Model',
+  chart_title: 'Geüpload infraroodspectrum',
+  result_disclaimer: 'Dit resultaat komt van een onderzoeksmodel dat getraind is op 1.040 ATR-FTIR-speekselspectra. Het is geen klinische diagnose. De samenstelling van speeksel wordt beïnvloed door voeding, hydratatie en mondgezondheid. Raadpleeg een arts voor een goede test.',
+  low_risk: 'Laag risico op diabetes type 2 gedetecteerd',
+  high_risk: 'Verhoogd risico — raadpleeg een arts',
+  medium_risk: 'Onzeker — vervolgonderzoek aanbevolen',
+
+  how_eyebrow: 'Het proces', how_title: 'Hoe werkt het?',
+  how_subtitle: 'Van speekselmonster tot resultaat in vier stappen.',
+  step1_title: 'Speeksel verzamelen', step1_desc: 'Een klein speekselmonster wordt nuchter verzameld. Geen naalden, geen bloed.',
+  step2_title: 'ATR-FTIR-scan', step2_desc: 'Het monster wordt gescand met infraroodspectroscopie om de moleculaire vingerafdruk vast te leggen.',
+  step3_title: 'Spectrum uploaden', step3_desc: 'Exporteer het spectrum als CSV- of JSON-bestand en upload het hier.',
+  step4_title: 'AI-screening', step4_desc: 'Het neurale netwerk analyseert het spectrale patroon en geeft een risicoscore.',
+
+  edu_eyebrow: 'Diabetes type 2 — meer weten', edu_title: 'Diabetes type 2 begrijpen',
+  learn_more: 'Lees meer →',
+  edu1_title: 'Wat is diabetes type 2?', edu1_desc: 'Een chronische aandoening waarbij het lichaam insuline niet effectief gebruikt, waardoor de bloedglucose stijgt. Goed voor meer dan 90% van alle diabetesgevallen wereldwijd.',
+  edu2_title: 'Risicofactoren', edu2_desc: 'Overgewicht, lichamelijke inactiviteit, familiegeschiedenis, leeftijd boven 45 en zwangerschapsdiabetes. Leefstijlveranderingen verlagen het risico.',
+  edu3_title: 'Waarom speeksel?', edu3_desc: 'Speeksel bevat biochemische signalen van metabole veranderingen. ATR-FTIR kan moleculaire verschillen tussen diabetisch en niet-diabetisch speeksel detecteren.',
+  edu4_title: 'Preventie', edu4_desc: 'Regelmatige beweging (150 min/week), een evenwichtig suikerarm dieet, een gezond gewicht en niet roken verlagen het risico aanzienlijk.',
+  edu5_title: 'Over dit hulpmiddel', edu5_desc: 'Een TU/e multidisciplinair CBL-prototype, getraind op de SEDENA-speekseldataset (Mexico). Geen gecertificeerd medisch hulpmiddel.',
+  edu6_title: 'Laat je goed testen', edu6_desc: 'Officiële screening gebruikt nuchtere bloedglucose (≥126 mg/dL) of HbA1c (≥6,5%). Bij twijfel: neem contact op met je huisarts — vroege opsporing helpt.',
+
+  footer_note: 'Onderzoeksprototype — geen medisch hulpmiddel. Alleen voor educatieve doeleinden.',
+
+  learn_hub_title: 'Meer info', learn_hub_sub: 'Achtergrondinformatie, de wetenschap achter de tool en geselecteerde bronnen.',
+  learn_back: '← Terug naar de tool',
+  res_title: 'Bronnen', res_sub: 'Geselecteerde video\'s en artikelen om dieper te gaan.'
+};

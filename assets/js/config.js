@@ -14,7 +14,7 @@ window.SS_CONFIG = {
         ortSession.outputNames  -> should contain OUTPUT_NAME
   ------------------------------------------------------------------------------ */
   model: {
-    path:        './ann_optuna.onnx',  // relative to index.html; learn/ pages use ../
+    path:        './model_ann_pls.onnx',  // relative to index.html; learn/ pages use ../
     inputName:   'input',              // current deployed export
     outputName:  'type2_confidence',   // current deployed export
     inputLength: 3736,                 // full 399–4000 cm-1 spectrum

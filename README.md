@@ -1,6 +1,6 @@
-# SalivaScan — website
+# SalivaScan website
 
-Restructured from the old single `index.html` into organised files so the team
+Restructured from the old single `index.html` into organised files so we
 can edit content, check translations, and add pages without touching the logic.
 
 ## Structure
@@ -8,7 +8,7 @@ can edit content, check translations, and add pages without touching the logic.
 ```
 salivascan/
 ├── index.html                  Main page (tool + how + learn cards)
-├── CNAME                        Custom domain (salivascan.nl)
+├── CNAME                        Custom domain
 ├── ann_optuna.onnx             ← ADD THIS: your exported model (not included)
 ├── assets/
 │   ├── css/
@@ -32,8 +32,6 @@ salivascan/
 ## To deploy
 1. Drop your exported model in the root as `ann_optuna.onnx`.
 2. Push everything to the GitHub Pages repo.
-3. Buy `salivascan.nl`, point a CNAME DNS record at `<user>.github.io`,
-   keep the `CNAME` file as-is. HTTPS is automatic.
 
 ## To change the model
 Edit only `assets/js/config.js → model`. If Deniz re-exports, update

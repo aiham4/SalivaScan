@@ -48,5 +48,16 @@ window.SS_I18N.nl = {
 
   learn_hub_title: 'Meer info', learn_hub_sub: 'Achtergrondinformatie, de wetenschap achter de tool en geselecteerde bronnen.',
   learn_back: '← Terug naar de tool',
-  res_title: 'Bronnen', res_sub: 'Geselecteerde video\'s en artikelen om dieper te gaan.'
+  res_title: 'Bronnen', res_sub: 'Geselecteerde video\'s en artikelen om dieper te gaan.',
+raw_score_label:    "Score neuraal netwerk",
+  threshold_label:    "Drempelwaarde",
+  confidence_label:   "Vertrouwen in dit resultaat",
+  how_computed_btn:   "Hoe wordt dit berekend?",
+  how_p1: "Het neurale netwerk berekent voor elk spectrum een getal tussen 0 en 1 — de <strong>modelscore</strong>. Dit volgt uit een sigmoid-activatie op de laatste laag.",
+  how_p2: "Een vaste <strong>drempelwaarde</strong> (<code id=\"threshExplain\">0,60</code>, bepaald bij de modelevaluatie) stelt de classificatiegrens in. Scores ≥ drempelwaarde → <em>verhoogd risico</em>; eronder → <em>laag risico</em>.",
+  how_p3: "Het <strong>vertrouwenspercentage</strong> geeft aan hoe ver de score van de grens verwijderd is, geschaald naar 0–100 %. Precies op de grens = 0 % (maximaal onzeker); 0,0 of 1,0 = 100 %. Dit is <em>geen</em> gekalibreerde medische kans.",
+view_all:   "Alle onderwerpen →",
+  edu_title:  "Meer lezen",
+  edu_eyebrow:"Lees meer",
+  res_sources_note: "Vervang deze door de bronnen die in het eindverslag worden geciteerd."
 };

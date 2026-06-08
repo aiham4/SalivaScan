@@ -48,5 +48,16 @@ window.SS_I18N.es = {
 
   learn_hub_title: 'Más información', learn_hub_sub: 'Lecturas de fondo, la ciencia tras la herramienta y recursos seleccionados.',
   learn_back: '← Volver a la herramienta',
-  res_title: 'Recursos', res_sub: 'Vídeos y artículos seleccionados para profundizar.'
+  res_title: 'Recursos', res_sub: 'Vídeos y artículos seleccionados para profundizar.',
+raw_score_label:    "Puntuación de la red neuronal",
+  threshold_label:    "Umbral",
+  confidence_label:   "Confianza en este resultado",
+  how_computed_btn:   "¿Cómo se calcula esto?",
+  how_p1: "La red neuronal produce un número entre 0 y 1 para cada espectro — la <strong>puntuación del modelo</strong>. Se obtiene mediante una activación sigmoide en la última capa.",
+  how_p2: "Un <strong>umbral</strong> fijo (<code id=\"threshExplain\">0,60</code>, establecido durante la evaluación del modelo) delimita la clasificación. Puntuaciones ≥ umbral → <em>riesgo elevado</em>; menores → <em>riesgo bajo</em>.",
+  how_p3: "El <strong>porcentaje de confianza</strong> mide la distancia de la puntuación al umbral, reescalada a 0–100 %. Justo en el umbral = 0 % (máxima incertidumbre); 0,0 o 1,0 = 100 %. Esto <em>no</em> es una probabilidad médica calibrada.",
+view_all:   "Ver todos los temas →",
+  edu_title:  "Para profundizar",
+  edu_eyebrow:"Aprende más",
+  res_sources_note: "Sustitúyelas por las fuentes exactas citadas en el informe final."
 };

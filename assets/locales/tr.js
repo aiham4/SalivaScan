@@ -48,5 +48,16 @@ window.SS_I18N.tr = {
 
   learn_hub_title: 'Daha fazla bilgi', learn_hub_sub: 'Arka plan okumaları, aracın arkasındaki bilim ve seçilmiş kaynaklar.',
   learn_back: '← Araca dön',
-  res_title: 'Kaynaklar', res_sub: 'Derinleşmek için seçilmiş videolar ve makaleler.'
+  res_title: 'Kaynaklar', res_sub: 'Derinleşmek için seçilmiş videolar ve makaleler.',
+raw_score_label:    "Sinir ağı skoru",
+  threshold_label:    "Eşik değeri",
+  confidence_label:   "Bu sonuca güven",
+  how_computed_btn:   "Bu nasıl hesaplanıyor?",
+  how_p1: "Sinir ağı, her spektrum için 0 ile 1 arasında bir sayı üretir — buna <strong>model skoru</strong> denir. Son katmandaki sigmoid aktivasyonundan elde edilir.",
+  how_p2: "Sabit bir <strong>eşik değeri</strong> (<code id=\"threshExplain\">0,60</code>, model değerlendirmesine göre belirlenir) sınıflandırma sınırını belirler. Eşik ≥ skorlar → <em>yüksek risk</em>; altındakiler → <em>düşük risk</em>.",
+  how_p3: "<strong>Güven yüzdesi</strong>, skorun eşik değerinden uzaklığını 0–100 % aralığına ölçekler. Tam eşik = 0 % (en belirsiz); 0,0 veya 1,0 = 100 %. Bu, kalibre edilmiş bir tıbbi olasılık <em>değildir</em>.",
+view_all:   "Tüm konular →",
+  edu_title:  "Daha fazla okuma",
+  edu_eyebrow:"Daha fazla bilgi",
+  res_sources_note: "Bunları final raporunda atıfta bulunulan kaynaklarla değiştirin."
 };

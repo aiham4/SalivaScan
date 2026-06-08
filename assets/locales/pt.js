@@ -49,5 +49,16 @@ window.SS_I18N.pt = {
 
   learn_hub_title: 'Saber mais', learn_hub_sub: 'Leituras de contexto, a ciência por detrás da ferramenta e recursos selecionados.',
   learn_back: '← Voltar à ferramenta',
-  res_title: 'Recursos', res_sub: 'Vídeos e artigos selecionados para aprofundar.'
+  res_title: 'Recursos', res_sub: 'Vídeos e artigos selecionados para aprofundar.',
+raw_score_label:    "Pontuação da rede neuronal",
+  threshold_label:    "Limiar",
+  confidence_label:   "Confiança neste resultado",
+  how_computed_btn:   "Como é calculado?",
+  how_p1: "A rede neuronal produz um número entre 0 e 1 para cada espetro — a <strong>pontuação do modelo</strong>. É gerada por uma ativação sigmoide na última camada.",
+  how_p2: "Um <strong>limiar</strong> fixo (<code id=\"threshExplain\">0,60</code>, definido durante a avaliação do modelo) determina a fronteira de classificação. Pontuações ≥ limiar → <em>risco elevado</em>; abaixo → <em>baixo risco</em>.",
+  how_p3: "O <strong>percentual de confiança</strong> mede a distância entre a pontuação e o limiar, reescalado para 0–100 %. Exatamente no limiar = 0 % (máxima incerteza); 0,0 ou 1,0 = 100 %. Isto <em>não</em> é uma probabilidade médica calibrada.",
+view_all:   "Ver todos os temas →",
+  edu_title:  "Para aprofundar",
+  edu_eyebrow:"Saiba mais",
+  res_sources_note: "Substitui estas pelos recursos exatos citados no relatório final."
 };

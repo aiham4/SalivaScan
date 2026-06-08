@@ -27,33 +27,55 @@
   </div>
 </nav>
 
-<!-- ARTICLE BODY (English). Long-form text is not auto-translated. -->
 <main class="article">
-  <div class="breadcrumb"><a href="index.html" data-i18n="nav_learn">Learn</a> / Why Saliva?</div>
-  <h1>Why Saliva?</h1>
-  <p class="lead">Saliva carries a chemical snapshot of the body's metabolism &mdash; and unlike blood, it can be collected painlessly, anywhere, by anyone.</p>
+  <div class="breadcrumb">
+    <a href="index.html" data-i18n="nav_learn">Learn</a> /
+    <span data-i18n="edu3_title">Why Saliva?</span>
+  </div>
 
-  <h2>A non-invasive window into metabolism</h2>
-  <p>Saliva contains glucose, proteins, lipids and other molecules whose concentrations shift when metabolism changes, as happens in Type 2 diabetes. Because collection needs no needle, no clinician and no special handling, it is well suited to large-scale, low-cost screening &mdash; especially where access to clinics or labs is limited.</p>
+  <!-- See what-is-diabetes.html for the translation guide -->
+  <div class="article-lang-notice" id="langNotice" style="display:none">
+    This article is not yet available in the selected language. Showing English.
+  </div>
 
-  <h2>What ATR-FTIR actually measures</h2>
-  <p>ATR-FTIR (Attenuated Total Reflectance &ndash; Fourier Transform Infrared) spectroscopy shines infrared light at the sample. Different molecular bonds absorb specific infrared frequencies, producing a spectrum &mdash; effectively a molecular fingerprint across the 399&ndash;4000 cm&#8315;&sup1; range. Diabetic and non-diabetic saliva differ subtly across this fingerprint, in ways a trained model can learn to separate.</p>
+  <!-- ── ENGLISH ──────────────────────────────────────────────────────────── -->
+  <div class="article-lang" data-lang="en">
+    <h1>Why Saliva? ATR-FTIR Spectroscopy Explained</h1>
+    <p class="lead">Saliva carries a chemical snapshot of the body's metabolism. Unlike blood, it can be collected painlessly, anywhere, by anyone.</p>
 
-  <h2>Why a neural network</h2>
-  <p>The differences are spread across thousands of wavenumbers and are far too subtle to read by eye. A neural network trained on labelled spectra can pick up the combined pattern and turn a full spectrum into a single risk estimate.</p>
+    <h2>A non-invasive window into metabolism</h2>
+    <p>Saliva contains glucose, proteins, lipids, and other molecules whose concentrations shift when metabolism changes — as happens in Type 2 diabetes. Because collection needs no needle, no clinician, and no special handling, it suits large-scale, low-cost screening well, especially where access to clinics or labs is limited.</p>
 
-  <h2>Honest limitations</h2>
-  <ul>
-    <li>Saliva composition is affected by diet, hydration, time of day and oral health.</li>
-    <li>The model was trained on one dataset (SEDENA, Mexico) and may not generalise to other populations or instruments.</li>
-    <li>It is a screening aid, not a diagnosis &mdash; positive results should always be confirmed with a clinical blood test.</li>
-  </ul>
+    <h2>What ATR-FTIR actually measures</h2>
+    <p>ATR-FTIR (Attenuated Total Reflectance &ndash; Fourier Transform Infrared) spectroscopy shines infrared light at a sample. Different molecular bonds absorb specific infrared frequencies, producing a spectrum &mdash; a molecular fingerprint across the 399&ndash;4000 cm&#8315;&#185; range. Diabetic and non-diabetic saliva differ subtly across this fingerprint in ways a trained model can learn to detect.</p>
 
-  <p class="source">Sources: add your cited spectroscopy and dataset references here for the final report.</p>
+    <h2>Why a neural network</h2>
+    <p>The differences are spread across thousands of wavenumbers and are far too subtle to read by eye. A neural network trained on labelled spectra picks up the combined pattern and turns a full spectrum into a single risk estimate.</p>
+
+    <h2>Honest limitations</h2>
+    <ul>
+      <li>Saliva composition is affected by diet, hydration, time of day, and oral health.</li>
+      <li>The model was trained on one dataset (SEDENA, Mexico) and may not generalise to other populations or instruments.</li>
+      <li>This is a screening aid, not a diagnosis &mdash; positive results should be confirmed with a blood test.</li>
+    </ul>
+    <p class="source">Sources: add your spectroscopy and dataset references here for the final report.</p>
+  </div>
+
+  <!-- ── DUTCH ────────────────────────────────────────────────────────────── -->
+  <!-- <div class="article-lang" data-lang="nl"> ... </div> -->
+  <!-- ── SPANISH ──────────────────────────────────────────────────────────── -->
+  <!-- <div class="article-lang" data-lang="es"> ... </div> -->
+  <!-- ── PORTUGUESE ─────────────────────────────────────────────────────────  -->
+  <!-- <div class="article-lang" data-lang="pt"> ... </div> -->
+  <!-- ── ARABIC ──────────────────────────────────────────────────────────── -->
+  <!-- <div class="article-lang" data-lang="ar"> ... </div> -->
+  <!-- ── TURKISH ─────────────────────────────────────────────────────────── -->
+  <!-- <div class="article-lang" data-lang="tr"> ... </div> -->
 </main>
 
 <footer><strong>SalivaScan</strong> &middot; <span data-i18n="footer_note">Research prototype &mdash; not a medical device.</span></footer>
 
+<script src="../assets/js/content.js"></script>
 <script src="../assets/locales/en.js"></script>
 <script src="../assets/locales/nl.js"></script>
 <script src="../assets/locales/es.js"></script>

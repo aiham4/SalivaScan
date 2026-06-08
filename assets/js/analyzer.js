@@ -155,6 +155,26 @@
     $('metaRange').textContent  = '399 – 4000 cm⁻¹';
 
     var threshold = M.threshold;
+    var scorePC   = Math.round(score * 1000) / 10;          // e.g. 73.2
+    var threshPC  = Math.round(threshold * 100);            // e.g. 60
+
+    // --- score bar ----------------------------------------------------------
+    var track  = $('scoreTrack');
+    var needle = $('scoreNeedle');
+    var tmark  = $('thresholdMark');
+    if (track) track.style.setProperty('--thresh', threshPC + '%');
+    if (needle) needle.style.left = Math.min(100, Math.max(0, scorePC)) + '%';
+    if (tmark)  tmark.style.left  = threshPC + '%';
+    var lbl = $('thresholdLbl');
+    if (lbl) lbl.textContent = threshPC + ' % (' + T('threshold_label') + ')';
+    var rsp = $('rawScorePct');
+    if (rsp) rsp.textContent = scorePC.toFixed(1) + ' %';
+
+    // fill in the threshold value inside the explanation text
+    var te = $('threshExplain');
+    if (te) te.textContent = threshold.toFixed(2);
+
+    // --- classification + confidence ----------------------------------------
     var conf;
     if (score < threshold) {
       conf = Math.round((1 - score / threshold) * 100);
@@ -168,7 +188,7 @@
       fill.className = 'confidence-fill high-risk';
     }
     fill.style.width = conf + '%';
-    pct.textContent  = conf + '%';
+    pct.textContent  = conf + ' %';
 
     $('resultsCard').classList.add('show');
     drawChart(uploadedData);

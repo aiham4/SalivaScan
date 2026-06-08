@@ -57,5 +57,17 @@ window.SS_I18N.en = {
   // learn hub / articles
   learn_hub_title: 'Learn', learn_hub_sub: 'Background reading, the science behind the tool, and curated resources.',
   learn_back: '← Back to tool',
-  res_title: 'Resources', res_sub: 'Hand-picked videos and articles to go deeper.'
+  res_title: 'Resources', res_sub: 'Hand-picked videos and articles to go deeper.',
+// score-bar + explanation keys
+  raw_score_label:    "Neural network score",
+  threshold_label:    "Threshold",
+  confidence_label:   "Confidence in this result",
+  how_computed_btn:   "How is this calculated?",
+  how_p1: "The neural network outputs a single number between 0 and 1 for every spectrum — the <strong>model score</strong>. It is produced by a sigmoid activation on the final layer, so it always falls in this range.",
+  how_p2: "A fixed <strong>threshold</strong> (currently <code id=\"threshExplain\">0.60</code>, set during model evaluation) acts as the classification boundary. Scores at or above the threshold are labelled <em>elevated risk</em>; scores below are labelled <em>low risk</em>.",
+  how_p3: "The <strong>confidence percentage</strong> measures how far the score is from that boundary, rescaled to 0–100 %. A score right at the threshold gives 0 % (maximally uncertain); 0.0 or 1.0 gives 100 %. This is <em>not</em> a calibrated medical probability — it measures how decisive the model output is.",
+view_all:   "View all topics →",
+  edu_title:  "Further reading",
+  edu_eyebrow:"Learn",
+  res_sources_note: "Replace these with the exact sources cited in the final report."
 };

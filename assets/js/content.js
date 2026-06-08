@@ -119,11 +119,11 @@ window.SS_CONTENT = {
       desc: 'Authoritative overview of types, symptoms and prevention.'
     },
     {
-      type: 'data',
-      title: 'Dataset obtained from . Attenuated total reflection FTIR dataset for identification of type 2 diabetes using saliva',
-      url: 'https://doi.org/10.6084/m9.figshare.19450916.v1',
-      desc: ''
-    }
+      type: 'article',
+      title: 'Type 2 diabetes diagnosis via FTIR saliva spectra and ML — Sanchez-Brito et al. (2021)',
+      url: 'https://www.sciencedirect.com/science/article/abs/pii/S1746809421004523',
+      desc: 'The study underlying the dataset: 1,000 participants, LDA/KNN/SVM/ANN compared on saliva ATR-FTIR spectra for diabetic vs healthy classification.'
+    },
     /* ── add new resources here ──────────────────────────────────────────── */
   ],
 

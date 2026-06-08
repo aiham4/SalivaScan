@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>About · SalivaScan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="assets/css/tokens.css"/>
+<link rel="stylesheet" href="assets/css/styles.css"/>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/theme.js"></script>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="index.html"><span class="logo-dot"></span> SalivaScan</a>
+    <ul class="nav-links">
+      <li><a href="index.html#analyzer" data-i18n="nav_tool">Tool</a></li>
+      <li><a href="index.html#how" data-i18n="nav_how">How it works</a></li>
+      <li><a href="learn/index.html" data-i18n="nav_learn">Learn</a></li>
+      <li><a href="about.html" data-i18n="nav_about">About</a></li>
+    </ul>
+    <div class="nav-controls">
+      <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">&#9790;</button>
+      <div class="lang-switcher"></div>
+    </div>
+  </div>
+</nav>
+
+<main class="about-section wrap-narrow">
+  <span class="eyebrow"><span class="dot"></span><span data-i18n="nav_about">About</span></span>
+  <h1 class="section-title" style="font-size:2rem;" data-i18n="about_title">About the project</h1>
+  <p class="about-lead" data-i18n="about_lead">SalivaScan is a student research prototype built for the 4CBLW010 Multi-Disciplinary CBL course at TU/e. It explores whether Type 2 diabetes can be screened non-invasively from ATR-FTIR saliva spectra, with all analysis running privately in your browser.</p>
+
+  <h2 class="section-title" style="font-size:1.4rem;margin-top:2.5rem;" data-i18n="about_team_title">The team</h2>
+  <!-- auto-generated from assets/js/content.js → SS_CONTENT.team -->
+  <div class="team-grid" id="teamGrid"></div>
+</main>
+
+<footer><strong>SalivaScan</strong> &middot; 4CBLW010 Group 5 &middot; 2025&ndash;2026 &middot; <span data-i18n="footer_note">Research prototype &mdash; not a medical device. For educational purposes only.</span></footer>
+
+<script src="assets/js/content.js"></script>
+<script src="assets/locales/en.js"></script>
+<script src="assets/locales/nl.js"></script>
+<script src="assets/locales/es.js"></script>
+<script src="assets/locales/pt.js"></script>
+<script src="assets/locales/ar.js"></script>
+<script src="assets/locales/tr.js"></script>
+<script src="assets/js/i18n.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

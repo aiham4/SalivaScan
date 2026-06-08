@@ -4,7 +4,7 @@ window.SS_I18N.nl = {
   nav_tool: 'Tool', nav_how: 'Hoe het werkt', nav_learn: 'Meer info',
   theme_toggle: 'Donkere modus wisselen',
 
-  hero_eyebrow: 'Onderzoeksprototype · TU/e Groep 5',
+  hero_eyebrow: 'Onderzoeksprototype · 4CBLW010 Groep 5',
   hero_title: 'Niet-invasieve diabetes<em>screening</em> via speekselspectra',
   hero_desc: 'Upload een ATR-FTIR-infraroodspectrum van een speekselmonster en krijg direct een machine-learning-schatting van het risico op diabetes type 2.',
   hero_disclaimer: 'Dit hulpmiddel is uitsluitend een onderzoeksprototype. Het stelt geen medische diagnose. Raadpleeg altijd een zorgverlener.',
@@ -59,5 +59,11 @@ raw_score_label:    "Score neuraal netwerk",
 view_all:   "Alle onderwerpen →",
   edu_title:  "Meer lezen",
   edu_eyebrow:"Lees meer",
-  res_sources_note: "Vervang deze door de bronnen die in het eindverslag worden geciteerd."
+  res_sources_note: "Vervang deze door de bronnen die in het eindverslag worden geciteerd.",
+  nav_about: 'Over ons',
+  nn_details_btn: 'Toon uitvoer neuraal netwerk',
+  article_fallback_notice: 'Dit artikel is nog niet beschikbaar in de gekozen taal. Engels wordt getoond.',
+  about_title: 'Over het project',
+  about_lead: 'SalivaScan is een onderzoeksprototype van studenten, gemaakt voor het vak 4CBLW010 Multidisciplinair CBL aan de TU/e. Het onderzoekt of diabetes type 2 niet-invasief kan worden gescreend uit ATR-FTIR-speekselspectra, waarbij alle analyse privé in je browser draait.',
+  about_team_title: 'Het team'
 };

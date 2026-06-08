@@ -5,7 +5,7 @@ window.SS_I18N.pt = {
   nav_tool: 'Ferramenta', nav_how: 'Como funciona', nav_learn: 'Saber mais',
   theme_toggle: 'Alternar modo escuro',
 
-  hero_eyebrow: 'Protótipo de investigação · TU/e Grupo 5',
+  hero_eyebrow: 'Protótipo de investigação · 4CBLW010 Grupo 5',
   hero_title: 'Rastreio <em>não invasivo</em> de diabetes a partir de espetros de saliva',
   hero_desc: 'Carrega um espetro infravermelho ATR-FTIR de uma amostra de saliva e obtém de imediato uma estimativa de rastreio por aprendizagem automática do risco de diabetes tipo 2.',
   hero_disclaimer: 'Esta ferramenta é apenas um protótipo de investigação. Não fornece um diagnóstico médico. Consulta sempre um profissional de saúde.',
@@ -60,5 +60,11 @@ raw_score_label:    "Pontuação da rede neuronal",
 view_all:   "Ver todos os temas →",
   edu_title:  "Para aprofundar",
   edu_eyebrow:"Saiba mais",
-  res_sources_note: "Substitui estas pelos recursos exatos citados no relatório final."
+  res_sources_note: "Substitui estas pelos recursos exatos citados no relatório final.",
+  nav_about: 'Sobre',
+  nn_details_btn: 'Mostrar saída da rede neuronal',
+  article_fallback_notice: 'Este artigo ainda não está disponível no idioma selecionado. A mostrar em inglês.',
+  about_title: 'Sobre o projeto',
+  about_lead: 'O SalivaScan é um protótipo de investigação estudantil criado para a unidade curricular 4CBLW010 CBL Multidisciplinar da TU/e. Explora se a diabetes tipo 2 pode ser rastreada de forma não invasiva a partir de espetros de saliva ATR-FTIR, com toda a análise a correr de forma privada no teu navegador.',
+  about_team_title: 'A equipa'
 };

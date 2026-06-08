@@ -7,7 +7,7 @@ window.SS_I18N.en = {
   theme_toggle: 'Toggle dark mode',
 
   // hero
-  hero_eyebrow: 'Research Prototype · TU/e Group 5',
+  hero_eyebrow: 'Research Prototype · 4CBLW010 Group 5',
   hero_title: 'Non-invasive diabetes <em>screening</em> from saliva spectra',
   hero_desc: 'Upload an ATR-FTIR infrared spectrum from a saliva sample and get an instant machine-learning screening estimate for Type 2 diabetes risk.',
   hero_disclaimer: 'This tool is a research proof-of-concept only. It does not provide a medical diagnosis. Always consult a healthcare professional.',
@@ -69,5 +69,11 @@ window.SS_I18N.en = {
 view_all:   "View all topics →",
   edu_title:  "Further reading",
   edu_eyebrow:"Learn",
-  res_sources_note: "Replace these with the exact sources cited in the final report."
+  res_sources_note: "Replace these with the exact sources cited in the final report.",
+  nav_about: 'About',
+  nn_details_btn: 'Show neural network output',
+  article_fallback_notice: 'This article is not yet available in the selected language. Showing English.',
+  about_title: 'About the project',
+  about_lead: 'SalivaScan is a student research prototype built for the 4CBLW010 Multi-Disciplinary CBL course at TU/e. It explores whether Type 2 diabetes can be screened non-invasively from ATR-FTIR saliva spectra, with all analysis running privately in your browser.',
+  about_team_title: 'The team'
 };

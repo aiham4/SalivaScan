@@ -163,15 +163,17 @@
     var scorePC   = Math.round(score * 1000) / 10;          // e.g. 73.2
     var threshPC  = Math.round(threshold * 100);            // e.g. 60
 
-    // --- score bar ----------------------------------------------------------
-    var track  = $('scoreTrack');
-    var needle = $('scoreNeedle');
-    var tmark  = $('thresholdMark');
-    if (track) track.style.setProperty('--thresh', threshPC + '%');
-    if (needle) needle.style.left = Math.min(100, Math.max(0, scorePC)) + '%';
+    // --- raw neural-network output bar (inside the disclosure) -------------
+    var needle   = $('scoreNeedle');
+    var tmark    = $('thresholdMark');
+    var zoneLow  = $('scoreZoneLow');
+    var zoneHigh = $('scoreZoneHigh');
+    if (zoneLow)  zoneLow.style.width  = threshPC + '%';
+    if (zoneHigh) { zoneHigh.style.left = threshPC + '%'; zoneHigh.style.width = (100 - threshPC) + '%'; }
     if (tmark)  tmark.style.left  = threshPC + '%';
+    if (needle) needle.style.left = Math.min(100, Math.max(0, scorePC)) + '%';
     var lbl = $('thresholdLbl');
-    if (lbl) lbl.textContent = threshPC + ' % (' + T('threshold_label') + ')';
+    if (lbl) lbl.textContent = T('threshold_label') + ' ' + threshPC + ' %';
     var rsp = $('rawScorePct');
     if (rsp) rsp.textContent = scorePC.toFixed(1) + ' %';
 
@@ -220,7 +222,6 @@
 
     $('fileName').textContent = file.name;
     $('fileMeta').textContent = (file.size / 1024).toFixed(1) + ' KB · ' + file.name.split('.').pop().toUpperCase();
-    $('fileIcon').textContent = file.name.toLowerCase().endsWith('.json') ? '{ }' : '📊';
     $('fileInfo').classList.add('show');
 
     var reader = new FileReader();

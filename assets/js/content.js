@@ -120,10 +120,31 @@ window.SS_CONTENT = {
     },
     {
       type: 'data',
-      title: 'NIST Chemistry WebBook',
-      url: 'https://webbook.nist.gov/chemistry/',
-      desc: 'Reference IR spectra used elsewhere in the project.'
+      title: 'Dataset obtained from . Attenuated total reflection FTIR dataset for identification of type 2 diabetes using saliva',
+      url: 'https://doi.org/10.6084/m9.figshare.19450916.v1',
+      desc: ''
     }
     /* ── add new resources here ──────────────────────────────────────────── */
+  ],
+
+  /* ── TEAM (shown on about.html) ───────────────────────────────────────────
+     Edit names and roles freely. `initials` shows in the avatar circle until
+     you drop in a photo: set photo:'assets/img/aiham.jpg' to use an image.
+     `role` is an object so it can be translated per language (English fallback).
+  ────────────────────────────────────────────────────────────────────────── */
+  team: [
+    { name: 'Aiham', photo: '',
+      role: { en: 'Team member', nl: 'Teamlid' } },
+    { name: 'Deniz', photo: '',
+      role: { en: 'Team member', nl: 'Teamlid' } },
+    { name: 'Ruben', photo: '',
+      role: { en: 'Team member', nl: 'Teamlid' } },
+    { name: 'Lucas L.', photo: '',
+      role: { en: 'Team member', nl: 'Teamlid' } },
+    { name: 'Lucas van Z.', photo: '',
+      role: { en: 'Team member', nl: 'Teamlid' } },
+    { name: 'Marc', photo: '',
+      role: { en: 'Team member', nl: 'Teamlid' } }
+    /* ── edit team members here ───────────────────────────────────── */
   ]
 };

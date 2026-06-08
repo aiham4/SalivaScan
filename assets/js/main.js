@@ -26,6 +26,9 @@
   // ── resources page (learn/resources.html only) ───────────────────────────
   renderResourceList();
 
+  // ── team grid (about.html only) ───────────────────────────────────────────
+  renderTeam();
+
   // ── article page: show correct lang section ───────────────────────────────
   applyArticleLang();
 
@@ -36,6 +39,7 @@
         renderTopicList();
         renderHubList();
         renderResourceList();
+        renderTeam();
         applyArticleLang();
         if (window.SSAnalyzer && window.SSAnalyzer.reloadStatusText) {
           window.SSAnalyzer.reloadStatusText();
@@ -67,6 +71,13 @@
     return icons[type] || icons['article'];
   }
 
+  // Generic placeholder icon for article/topic rows. Replace per-article by
+  // adding an `icon: '<svg…>'` string to that article in content.js.
+  function placeholderIcon(custom) {
+    if (custom) return custom;
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>';
+  }
+
   /* ── renderTopicList: article rows on the main page ─────────────────────── */
   function renderTopicList() {
     var host = document.getElementById('topicsList');
@@ -79,7 +90,7 @@
       el.className = 'topic-row';
       el.href = basePath + a.slug;
       el.innerHTML =
-        '<span class="topic-num">0' + (i + 1) + '</span>' +
+        '<span class="icon-slot">' + placeholderIcon(a.icon) + '</span>' +
         '<span class="topic-body">' +
           '<span class="topic-title">' + field(a.title) + '</span>' +
           '<span class="topic-desc">' + field(a.desc) + '</span>' +
@@ -95,7 +106,7 @@
     res.className = 'topic-row';
     res.href = basePath + 'resources.html';
     res.innerHTML =
-      '<span class="topic-num">0' + (articles.length + 1) + '</span>' +
+      '<span class="icon-slot">' + typeIcon('article') + '</span>' +
       '<span class="topic-body">' +
         '<span class="topic-title">' + t('res_title') + '</span>' +
         '<span class="topic-desc">' + t('res_sub') + '</span>' +
@@ -118,10 +129,13 @@
       el.className = 'hub-row';
       el.href = a.slug;                            // relative from learn/
       el.innerHTML =
-        '<div>' +
-          '<div class="hub-row-cat">' + field(a.category) + '</div>' +
-          '<div class="hub-row-title">' + field(a.title) + '</div>' +
-          '<div class="hub-row-desc">' + field(a.desc) + '</div>' +
+        '<div style="display:flex;gap:14px;align-items:flex-start;min-width:0">' +
+          '<span class="icon-slot">' + placeholderIcon(a.icon) + '</span>' +
+          '<div style="min-width:0">' +
+            '<div class="hub-row-cat">' + field(a.category) + '</div>' +
+            '<div class="hub-row-title">' + field(a.title) + '</div>' +
+            '<div class="hub-row-desc">' + field(a.desc) + '</div>' +
+          '</div>' +
         '</div>' +
         '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">' +
           (a.mins ? '<span class="hub-row-mins">' + a.mins + ' min</span>' : '') +
@@ -162,6 +176,25 @@
           '<div class="resource-card-title">' + r.title + '</div>' +
           '<div class="resource-card-desc">' + r.desc + '</div>' +
         '</div>';
+      host.appendChild(el);
+    });
+  }
+
+  /* ── renderTeam: cards on about.html ─────────────────────────────────────── */
+  function renderTeam() {
+    var host = document.getElementById('teamGrid');
+    if (!host || !window.SS_CONTENT || !window.SS_CONTENT.team) return;
+    host.innerHTML = '';
+    window.SS_CONTENT.team.forEach(function (m) {
+      var el = document.createElement('div');
+      el.className = 'team-card';
+      var avatar = m.photo
+        ? '<img src="' + m.photo + '" alt="' + m.name + '"/>'
+        : (m.initials || '?');
+      el.innerHTML =
+        '<div class="team-avatar">' + avatar + '</div>' +
+        '<div class="team-name">' + m.name + '</div>' +
+        '<div class="team-role">' + field(m.role) + '</div>';
       host.appendChild(el);
     });
   }

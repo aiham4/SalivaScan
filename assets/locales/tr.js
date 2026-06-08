@@ -4,7 +4,7 @@ window.SS_I18N.tr = {
   nav_tool: 'Araç', nav_how: 'Nasıl çalışır', nav_learn: 'Daha fazla bilgi',
   theme_toggle: 'Koyu modu değiştir',
 
-  hero_eyebrow: 'Araştırma Prototipi · TU/e Grup 5',
+  hero_eyebrow: 'Araştırma Prototipi · 4CBLW010 Grup 5',
   hero_title: 'Tükürük spektrumlarından <em>girişimsel olmayan</em> diyabet taraması',
   hero_desc: 'Bir tükürük örneğinin ATR-FTIR kızılötesi spektrumunu yükleyin ve Tip 2 diyabet riski için anında makine öğrenmesi tabanlı bir tarama tahmini alın.',
   hero_disclaimer: 'Bu araç yalnızca bir araştırma prototipidir. Tıbbi tanı koymaz. Daima bir sağlık uzmanına danışın.',
@@ -59,5 +59,11 @@ raw_score_label:    "Sinir ağı skoru",
 view_all:   "Tüm konular →",
   edu_title:  "Daha fazla okuma",
   edu_eyebrow:"Daha fazla bilgi",
-  res_sources_note: "Bunları final raporunda atıfta bulunulan kaynaklarla değiştirin."
+  res_sources_note: "Bunları final raporunda atıfta bulunulan kaynaklarla değiştirin.",
+  nav_about: 'Hakkında',
+  nn_details_btn: 'Sinir ağı çıktısını göster',
+  article_fallback_notice: 'Bu makale seçilen dilde henüz mevcut değil. İngilizce gösteriliyor.',
+  about_title: 'Proje hakkında',
+  about_lead: 'SalivaScan, TU/e\'deki 4CBLW010 Çok Disiplinli CBL dersi için geliştirilen bir öğrenci araştırma prototipidir. Tip 2 diyabetin ATR-FTIR tükürük spektrumlarından girişimsel olmadan taranıp taranamayacağını araştırır; tüm analiz tarayıcınızda gizli biçimde çalışır.',
+  about_team_title: 'Ekip'
 };

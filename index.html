@@ -28,6 +28,7 @@
       <li><a href="#analyzer" data-i18n="nav_tool">Tool</a></li>
       <li><a href="#how" data-i18n="nav_how">How it works</a></li>
       <li><a href="learn/index.html" data-i18n="nav_learn">Learn</a></li>
+      <li><a href="about.html" data-i18n="nav_about">About</a></li>
     </ul>
     <div class="nav-controls">
       <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">☾</button>
@@ -40,7 +41,7 @@
 <section>
   <div class="hero">
     <div>
-      <span class="eyebrow"><span class="dot"></span><span data-i18n="hero_eyebrow">Research Prototype · TU/e Group 5</span></span>
+      <span class="eyebrow"><span class="dot"></span><span data-i18n="hero_eyebrow">Research Prototype · 4CBLW010 Group 5</span></span>
       <h1 data-i18n="hero_title">Non-invasive diabetes <em>screening</em> from saliva spectra</h1>
       <p class="hero-desc" data-i18n="hero_desc">Upload an ATR-FTIR infrared spectrum from a saliva sample and get an instant machine-learning screening estimate for Type 2 diabetes risk.</p>
       <div class="callout">
@@ -116,24 +117,7 @@
           <div class="result-value low" id="resultText">Low risk detected</div>
         </div>
       </div>
-      <!-- SCORE BAR: raw model output on full 0–100% scale -->
-      <div class="score-section">
-        <div class="score-header">
-          <span data-i18n="raw_score_label">Neural network score</span>
-          <span id="rawScorePct">—</span>
-        </div>
-        <div class="score-track" id="scoreTrack">
-          <div class="threshold-mark" id="thresholdMark"></div>
-          <div class="score-needle"   id="scoreNeedle"></div>
-        </div>
-        <div class="score-labels">
-          <span>0 %</span>
-          <span class="thresh-lbl" id="thresholdLbl">— %</span>
-          <span>100 %</span>
-        </div>
-      </div>
-
-      <!-- CONFIDENCE: how far the score is from the threshold -->
+      <!-- CONFIDENCE (primary, always visible): how sure the model is in its choice -->
       <div class="confidence-section">
         <div class="confidence-label">
           <span data-i18n="confidence_label">Confidence in this result</span>
@@ -142,19 +126,42 @@
         <div class="confidence-track"><div class="confidence-fill" id="confidenceFill"></div></div>
       </div>
 
-      <!-- EXPLANATION accordion -->
-      <details class="how-computed" id="howComputed">
-        <summary data-i18n="how_computed_btn">How is this calculated?</summary>
-        <div class="how-computed-body">
-          <p data-i18n="how_p1">The neural network outputs a single number between 0 and 1 for every spectrum — called the <strong>model score</strong>. It is produced by a sigmoid activation on the final layer, so it always falls in this range. A score of 1 means the spectrum looks maximally similar to diabetic samples in the training data; 0 means it looks maximally non-diabetic.</p>
-          <p data-i18n="how_p2">A fixed <strong>threshold</strong> (set to <code id="threshExplain">0.60</code> based on the team's model evaluation) acts as the classification boundary. Scores at or above the threshold are labelled <em>elevated risk</em>; scores below are labelled <em>low risk</em>.</p>
-          <p data-i18n="how_p3">The <strong>confidence percentage</strong> measures how far the score is from that boundary, rescaled to 0–100 %. A score right at the threshold gives 0 % confidence (maximally uncertain). A score of 1.0 (elevated) or 0.0 (low) gives 100 % confidence. This is <em>not</em> a calibrated medical probability — it is a measure of how decisive the model's output is.</p>
+      <!-- DISCLOSURE: raw neural-network output + explanation, hidden by default -->
+      <details class="nn-details" id="nnDetails">
+        <summary data-i18n="nn_details_btn">Show neural network output</summary>
+        <div class="nn-details-body">
+
+          <!-- raw model score on the full 0–100 % scale, with the threshold marker -->
+          <div class="score-section">
+            <div class="score-header">
+              <span data-i18n="raw_score_label">Neural network output</span>
+              <span id="rawScorePct">—</span>
+            </div>
+            <div class="score-track" id="scoreTrack">
+              <span class="score-zone-low"  id="scoreZoneLow"></span>
+              <span class="score-zone-high" id="scoreZoneHigh"></span>
+              <span class="threshold-mark"  id="thresholdMark"></span>
+              <span class="score-needle"    id="scoreNeedle"></span>
+            </div>
+            <div class="score-labels">
+              <span>0 %</span>
+              <span class="thresh-lbl" id="thresholdLbl">— %</span>
+              <span>100 %</span>
+            </div>
+          </div>
+
+          <!-- explanation of both numbers -->
+          <div class="how-computed-body">
+            <p data-i18n="how_p1">The neural network outputs a single number between 0 and 1 for every spectrum — called the <strong>model score</strong>. It is produced by a sigmoid activation on the final layer, so it always falls in this range. A score of 1 means the spectrum looks maximally similar to diabetic samples in the training data; 0 means it looks maximally non-diabetic.</p>
+            <p data-i18n="how_p2">A fixed <strong>threshold</strong> (set to <code id="threshExplain">0.60</code> based on the team's model evaluation) acts as the classification boundary. Scores at or above the threshold are labelled <em>elevated risk</em>; scores below are labelled <em>low risk</em>.</p>
+            <p data-i18n="how_p3">The <strong>confidence percentage</strong> measures how far the score is from that boundary, rescaled to 0–100 %. A score right at the threshold gives 0 % confidence (maximally uncertain). A score of 1.0 (elevated) or 0.0 (low) gives 100 % confidence. This is <em>not</em> a calibrated medical probability — it is a measure of how decisive the model's output is.</p>
+          </div>
         </div>
       </details>
       <div class="meta-grid">
         <div class="meta-box"><div class="meta-box-key" data-i18n="meta_points">Spectral points</div><div class="meta-box-val" id="metaPoints">—</div></div>
         <div class="meta-box"><div class="meta-box-key" data-i18n="meta_range">Wavenumber range</div><div class="meta-box-val" id="metaRange">—</div></div>
-        <div class="meta-box"><div class="meta-box-key" data-i18n="meta_model">Model</div><div class="meta-box-val">ANN · Optuna</div></div>
+        <div class="meta-box"><div class="meta-box-key" data-i18n="meta_model">Model</div><div class="meta-box-val">Neural network</div></div>
       </div>
       <div class="chart-area">
         <div class="chart-title" data-i18n="chart_title">Uploaded infrared spectrum</div>
@@ -199,7 +206,7 @@
 </section>
 
 <footer>
-  <strong>SalivaScan</strong> · TU/e Group 5 · 4CBLW010 · 2025–2026 ·
+  <strong>SalivaScan</strong> · 4CBLW010 Group 5 · 2025–2026 ·
   <span data-i18n="footer_note">Research prototype — not a medical device. For educational purposes only.</span>
 </footer>
 

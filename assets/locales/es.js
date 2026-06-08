@@ -4,7 +4,7 @@ window.SS_I18N.es = {
   nav_tool: 'Herramienta', nav_how: 'Cómo funciona', nav_learn: 'Más información',
   theme_toggle: 'Cambiar modo oscuro',
 
-  hero_eyebrow: 'Prototipo de investigación · TU/e Grupo 5',
+  hero_eyebrow: 'Prototipo de investigación · 4CBLW010 Grupo 5',
   hero_title: 'Cribado <em>no invasivo</em> de diabetes mediante espectros de saliva',
   hero_desc: 'Sube un espectro infrarrojo ATR-FTIR de una muestra de saliva y obtén al instante una estimación de cribado por aprendizaje automático del riesgo de diabetes tipo 2.',
   hero_disclaimer: 'Esta herramienta es solo un prototipo de investigación. No proporciona un diagnóstico médico. Consulta siempre a un profesional sanitario.',
@@ -59,5 +59,11 @@ raw_score_label:    "Puntuación de la red neuronal",
 view_all:   "Ver todos los temas →",
   edu_title:  "Para profundizar",
   edu_eyebrow:"Aprende más",
-  res_sources_note: "Sustitúyelas por las fuentes exactas citadas en el informe final."
+  res_sources_note: "Sustitúyelas por las fuentes exactas citadas en el informe final.",
+  nav_about: 'Acerca de',
+  nn_details_btn: 'Mostrar salida de la red neuronal',
+  article_fallback_notice: 'Este artículo aún no está disponible en el idioma seleccionado. Se muestra en inglés.',
+  about_title: 'Sobre el proyecto',
+  about_lead: 'SalivaScan es un prototipo de investigación estudiantil creado para la asignatura 4CBLW010 CBL Multidisciplinar de la TU/e. Explora si la diabetes tipo 2 puede cribarse de forma no invasiva a partir de espectros de saliva ATR-FTIR, con todo el análisis ejecutándose de forma privada en tu navegador.',
+  about_team_title: 'El equipo'
 };

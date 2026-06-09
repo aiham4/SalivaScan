@@ -31,7 +31,7 @@ window.SS_CONTENT = {
     {
       slug: 'what-is-diabetes.html',
       category: {
-        en: 'Background', nl: 'Achtergrond', es: 'Contexto',
+        en: 'Background', nl: 'Context', es: 'Contexto',
         pt: 'Contexto',  ar: 'خلفية',        tr: 'Genel Bilgi'
       },
       title: {

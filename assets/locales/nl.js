@@ -6,7 +6,7 @@ window.SS_I18N.nl = {
 
   hero_eyebrow: 'Onderzoeksprototype · 4CBLW010 Groep 5',
   hero_title: 'Niet-invasieve diabetes<em>screening</em> via speekselspectra',
-  hero_desc: 'Upload een ATR-FTIR-infraroodspectrum van een speekselmonster en krijg direct een machine-learning-schatting van het risico op diabetes type 2.',
+  hero_desc: '	Upload een ATR FTIR infraroodspectrum van een speekselmonster en ontvang direct een risicoschatting voor diabetes type 2 gebaseerd op machine learning.',
   hero_disclaimer: 'Dit hulpmiddel is uitsluitend een onderzoeksprototype. Het stelt geen medische diagnose. Raadpleeg altijd een zorgverlener.',
   stat_samples: 'Trainingsmonsters', stat_method: 'Spectroscopiemethode', stat_task: 'Classificatietaak',
 
@@ -16,7 +16,7 @@ window.SS_I18N.nl = {
   retry: 'Opnieuw',
 
   tool_eyebrow: 'Spectrumanalyser', tool_title: 'Upload je spectrumbestand',
-  tool_subtitle: 'Geaccepteerde formaten: CSV (golfgetal, absorptie) of een JSON-array met absorptiewaarden over 399–4000 cm⁻¹.',
+  tool_subtitle: 'Geaccepteerde formaten: CSV (golfgetal, absorptievermogen kolommen) of een JSON-array met absorptiewaarden over 399–4000 cm⁻¹.',
   upload_title: 'Sleep bestand hierheen of klik om te bladeren',
   upload_sub: 'Je bestand verlaat nooit je browser — er wordt niets geüpload of opgeslagen.',
   btn_analyze: 'Spectrum analyseren',
@@ -30,10 +30,10 @@ window.SS_I18N.nl = {
 
   how_eyebrow: 'Het proces', how_title: 'Hoe werkt het?',
   how_subtitle: 'Van speekselmonster tot resultaat in vier stappen.',
-  step1_title: 'Speeksel verzamelen', step1_desc: 'Een klein speekselmonster wordt nuchter verzameld. Geen naalden, geen bloed.',
+  step1_title: 'Speeksel verzamelen', step1_desc: 'Een klein speekselmonster wordt afgenomen na vasten. Geen naalden, geen bloed.',
   step2_title: 'ATR-FTIR-scan', step2_desc: 'Het monster wordt gescand met infraroodspectroscopie om de moleculaire vingerafdruk vast te leggen.',
   step3_title: 'Spectrum uploaden', step3_desc: 'Exporteer het spectrum als CSV- of JSON-bestand en upload het hier.',
-  step4_title: 'AI-screening', step4_desc: 'Het neurale netwerk analyseert het spectrale patroon en geeft een risicoscore.',
+  step4_title: 'AI-screening', step4_desc: 'Het neurale netwerk analyseert het spectrum en geeft een risico-zekerheidsscore.',
 
   edu_eyebrow: 'Diabetes type 2 — meer weten', edu_title: 'Diabetes type 2 begrijpen',
   learn_more: 'Lees meer →',

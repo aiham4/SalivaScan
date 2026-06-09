@@ -97,13 +97,13 @@ window.SS_CONTENT = {
     {
       type: 'video',
       title: 'What is Type 2 Diabetes? (animated explainer)',
-      url: 'https://www.youtube.com/watch?v=wZAjVQWbMlE',
+      url: 'https://www.youtube.com/watch?v=oDOVXww7sSE',
       desc: 'A short, plain-language overview of insulin resistance and blood glucose.'
     },
     {
       type: 'video',
       title: 'How FTIR spectroscopy works',
-      url: 'https://www.youtube.com/watch?v=eM5jrRqDoUw',
+      url: 'https://youtu.be/0e_xBwQ7znI',
       desc: 'The basics of infrared spectra and molecular fingerprints.'
     },
     {

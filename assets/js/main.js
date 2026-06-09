@@ -169,12 +169,16 @@
       el.href = r.url;
       el.target = '_blank';
       el.rel = 'noopener';
+      // type label: use locale key if available, else fall back to raw string
+      var typeLabel = t('type_' + r.type) || r.type;
+      // desc: multilingual object or plain string
+      var desc = (typeof r.desc === 'object') ? field(r.desc) : (r.desc || '');
       el.innerHTML =
         '<div class="resource-type-icon">' + typeIcon(r.type) + '</div>' +
         '<div>' +
-          '<div class="resource-type-badge">' + r.type + '</div>' +
+          '<div class="resource-type-badge">' + typeLabel + '</div>' +
           '<div class="resource-card-title">' + r.title + '</div>' +
-          '<div class="resource-card-desc">' + r.desc + '</div>' +
+          (desc ? '<div class="resource-card-desc">' + desc + '</div>' : '') +
         '</div>';
       host.appendChild(el);
     });

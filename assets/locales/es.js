@@ -65,5 +65,8 @@ view_all:   "Ver todos los temas →",
   article_fallback_notice: 'Este artículo aún no está disponible en el idioma seleccionado. Se muestra en inglés.',
   about_title: 'Sobre el proyecto',
   about_lead: 'SalivaScan es un prototipo de investigación estudiantil creado para la asignatura 4CBLW010 CBL Multidisciplinar de la TU/e. Explora si la diabetes tipo 2 puede cribarse de forma no invasiva a partir de espectros de saliva ATR-FTIR, con todo el análisis ejecutándose de forma privada en tu navegador.',
-  about_team_title: 'El equipo'
+  about_team_title: 'El equipo',
+  type_video: 'Vídeo',
+  type_article: 'Artículo',
+  type_data: 'Conjunto de datos'
 };

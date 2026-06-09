@@ -75,5 +75,8 @@ view_all:   "View all topics →",
   article_fallback_notice: 'This article is not yet available in the selected language. Showing English.',
   about_title: 'About the project',
   about_lead: 'SalivaScan is a student research prototype built for the 4CBLW010 Multi-Disciplinary CBL course at TU/e. It explores whether Type 2 diabetes can be screened non-invasively from ATR-FTIR saliva spectra, with all analysis running privately in your browser.',
-  about_team_title: 'The team'
+  about_team_title: 'The team',
+  type_video: 'Video',
+  type_article: 'Article',
+  type_data: 'Dataset'
 };

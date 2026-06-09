@@ -98,31 +98,66 @@ window.SS_CONTENT = {
       type: 'video',
       title: 'What is Type 2 Diabetes? (animated explainer)',
       url: 'https://www.youtube.com/watch?v=oDOVXww7sSE',
-      desc: 'A short, plain-language overview of insulin resistance and blood glucose.'
+      desc: {
+        en: 'A short, plain-language overview of insulin resistance and blood glucose.',
+        nl: 'Een korte, toegankelijke uitleg over insulineresistentie en bloedglucose.',
+        es: 'Una descripción breve y accesible de la resistencia a la insulina y la glucosa en sangre.',
+        pt: 'Uma explicação breve e acessível sobre a resistência à insulina e a glicose no sangue.',
+        ar: 'شرح مختصر وميسّر للمقاومة للأنسولين والجلوكوز في الدم.',
+        tr: 'İnsülin direnci ve kan şekeri hakkında kısa, anlaşılır bir genel bakış.'
+      }
     },
     {
       type: 'video',
       title: 'How FTIR spectroscopy works',
       url: 'https://youtu.be/0e_xBwQ7znI',
-      desc: 'The basics of infrared spectra and molecular fingerprints.'
+      desc: {
+        en: 'The basics of infrared spectra and molecular fingerprints.',
+        nl: 'De basis van infraroodspectra en moleculaire vingerafdrukken.',
+        es: 'Los fundamentos de los espectros infrarrojos y las huellas moleculares.',
+        pt: 'Os fundamentos dos espetros infravermelhos e das impressões moleculares.',
+        ar: 'أساسيات الأطياف بالأشعة تحت الحمراء والبصمات الجزيئية.',
+        tr: 'Kızılötesi spektrumların ve moleküler parmak izlerinin temelleri.'
+      }
     },
     {
       type: 'article',
       title: 'IDF Diabetes Atlas — facts & figures',
       url: 'https://idf.org/about-diabetes/diabetes-facts-figures/',
-      desc: 'Global prevalence statistics used throughout this project.'
+      desc: {
+        en: 'Global prevalence statistics used throughout this project.',
+        nl: 'Wereldwijde prevalentiecijfers die in dit project zijn gebruikt.',
+        es: 'Estadísticas mundiales de prevalencia utilizadas en este proyecto.',
+        pt: 'Estatísticas mundiais de prevalência usadas ao longo deste projeto.',
+        ar: 'إحصاءات الانتشار العالمية المستخدمة طوال هذا المشروع.',
+        tr: 'Bu proje boyunca kullanılan küresel yaygınlık istatistikleri.'
+      }
     },
     {
       type: 'article',
       title: 'WHO — Diabetes fact sheet',
       url: 'https://www.who.int/news-room/fact-sheets/detail/diabetes',
-      desc: 'Authoritative overview of types, symptoms and prevention.'
+      desc: {
+        en: 'Authoritative overview of types, symptoms and prevention.',
+        nl: 'Gezaghebbend overzicht van typen, symptomen en preventie.',
+        es: 'Resumen autorizado de tipos, síntomas y prevención.',
+        pt: 'Resumo autoritativo de tipos, sintomas e prevenção.',
+        ar: 'نظرة عامة موثوقة على أنواع السكري وأعراضه والوقاية منه.',
+        tr: 'Diyabet türleri, belirtileri ve önlenmesine ilişkin güvenilir genel bakış.'
+      }
     },
     {
       type: 'article',
       title: 'Type 2 diabetes diagnosis via FTIR saliva spectra and ML — Sanchez-Brito et al. (2021)',
       url: 'https://www.sciencedirect.com/science/article/abs/pii/S1746809421004523',
-      desc: 'The study underlying the dataset: 1,000 participants, LDA/KNN/SVM/ANN compared on saliva ATR-FTIR spectra for diabetic vs healthy classification.'
+      desc: {
+        en: 'The study underlying the dataset: 1,000 participants, LDA/KNN/SVM/ANN compared on saliva ATR-FTIR spectra for diabetic vs healthy classification.',
+        nl: 'De studie achter de dataset: 1.000 deelnemers, LDA/KNN/SVM/ANN vergeleken op speeksel-ATR-FTIR-spectra voor classificatie diabetisch vs. gezond.',
+        es: 'El estudio en el que se basa el conjunto de datos: 1.000 participantes, LDA/KNN/SVM/ANN comparados sobre espectros de saliva ATR-FTIR para clasificación diabético vs. sano.',
+        pt: 'O estudo subjacente ao conjunto de dados: 1.000 participantes, LDA/KNN/SVM/ANN comparados em espetros de saliva ATR-FTIR para classificação diabético vs. saudável.',
+        ar: 'الدراسة التي يستند إليها مجموعة البيانات: 1,000 مشارك، مقارنة بين LDA وKNN وSVM وANN على أطياف اللعاب ATR-FTIR لتصنيف المصابين بالسكري مقابل الأصحاء.',
+        tr: 'Veri setinin dayandığı çalışma: 1.000 katılımcıyla LDA/KNN/SVM/ANN yöntemleri, diyabetik ve sağlıklı sınıflandırması için tükürük ATR-FTIR spektrumları üzerinde karşılaştırılmıştır.'
+      }
     },
     /* ── add new resources here ──────────────────────────────────────────── */
   ],

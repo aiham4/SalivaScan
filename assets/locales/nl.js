@@ -65,5 +65,8 @@ view_all:   "Alle onderwerpen →",
   article_fallback_notice: 'Dit artikel is nog niet beschikbaar in de gekozen taal. Engels wordt getoond.',
   about_title: 'Over het project',
   about_lead: 'SalivaScan is een onderzoeksprototype van studenten, gemaakt voor het vak 4CBLW010 Multidisciplinair CBL aan de TU/e. Het onderzoekt of diabetes type 2 niet-invasief kan worden gescreend uit ATR-FTIR-speekselspectra, waarbij alle analyse privé in je browser draait.',
-  about_team_title: 'Het team'
+  about_team_title: 'Het team',
+  type_video: 'Video',
+  type_article: 'Artikel',
+  type_data: 'Dataset'
 };

@@ -65,5 +65,8 @@ view_all:   "Tüm konular →",
   article_fallback_notice: 'Bu makale seçilen dilde henüz mevcut değil. İngilizce gösteriliyor.',
   about_title: 'Proje hakkında',
   about_lead: 'SalivaScan, TU/e\'deki 4CBLW010 Çok Disiplinli CBL dersi için geliştirilen bir öğrenci araştırma prototipidir. Tip 2 diyabetin ATR-FTIR tükürük spektrumlarından girişimsel olmadan taranıp taranamayacağını araştırır; tüm analiz tarayıcınızda gizli biçimde çalışır.',
-  about_team_title: 'Ekip'
+  about_team_title: 'Ekip',
+  type_video: 'Video',
+  type_article: 'Makale',
+  type_data: 'Veri seti'
 };

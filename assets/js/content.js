@@ -133,17 +133,17 @@ window.SS_CONTENT = {
      `role` is an object so it can be translated per language (English fallback).
   ────────────────────────────────────────────────────────────────────────── */
   team: [
-    { name: 'Aiham', photo: '',
+    { name: 'Aiham', initials: 'AA', photo: '',
       role: { en: 'Team member', nl: 'Teamlid' } },
-    { name: 'Deniz', photo: '',
+    { name: 'Deniz', initials: 'DB', photo: '',
       role: { en: 'Team member', nl: 'Teamlid' } },
-    { name: 'Ruben', photo: '',
+    { name: 'Lucas L.', initials: 'LL', photo: '',
       role: { en: 'Team member', nl: 'Teamlid' } },
-    { name: 'Lucas L.', photo: '',
+    { name: 'Lucas van Z.', initials: 'LZ', photo: '',
       role: { en: 'Team member', nl: 'Teamlid' } },
-    { name: 'Lucas van Z.', photo: '',
+    { name: 'Marc', initials: 'ME', photo: '',
       role: { en: 'Team member', nl: 'Teamlid' } },
-    { name: 'Marc', photo: '',
+    { name: 'Ruben', initials: 'RK', photo: '',
       role: { en: 'Team member', nl: 'Teamlid' } }
     /* ── edit team members here ───────────────────────────────────── */
   ]

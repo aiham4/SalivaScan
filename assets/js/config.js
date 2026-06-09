@@ -39,6 +39,7 @@ window.SS_CONFIG = {
     { code: 'en', label: 'EN', rtl: false },
     { code: 'nl', label: 'NL', rtl: false },
     { code: 'es', label: 'ES', rtl: false },
+    { code: 'ca', label: 'CA', rtl: false },
     { code: 'pt', label: 'PT', rtl: false },
     { code: 'ar', label: 'AR', rtl: true  },
     { code: 'tr', label: 'TR', rtl: false }

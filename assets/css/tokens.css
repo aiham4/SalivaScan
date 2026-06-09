@@ -43,8 +43,8 @@
   --surface: #FFFFFF;
   --surface2: #EEF0F4;
   --border: #DDD8D0;
-  --text: #1A1A2E;
-  --text-muted: #6B6878;
+  --text: #1A1714;
+  --text-muted: #6B6560;
 
   --accent-light: #FBEEE4;
   --accent2-light: #ECFDF5;
@@ -56,7 +56,7 @@
   --shadow-lg: 0 8px 48px rgba(26, 26, 46, 0.14);
 
   /* the dark "Learn" band stays dark in light mode */
-  --band: #1A1A2E;
+  --band: #1A1714;
   --band-text: #FFFFFF;
   --band-muted: rgba(255, 255, 255, 0.6);
   --band-card: rgba(255, 255, 255, 0.06);
@@ -65,16 +65,16 @@
 
 /* ---- DARK ----------------------------------------------------------------- */
 [data-theme="dark"] {
-  --bg: #121420;
-  --surface: #1B1E2E;
-  --surface2: #252939;
-  --border: #2F3447;
-  --text: #ECEAF4;
-  --text-muted: #9A98AC;
+  --bg: #141312;
+  --surface: #1E1C1A;
+  --surface2: #282421;
+  --border: #332E2A;
+  --text: #EDEAE4;
+  --text-muted: #978F87;
 
-  --accent: #EF8A4C;
-  --accent-strong: #F4A572;
-  --accent-light: rgba(239, 138, 76, 0.16);
+  --accent: #D97540;
+  --accent-strong: #E8905A;
+  --accent-light: rgba(217, 117, 64, 0.13);
   --accent2: #34D399;
   --accent2-light: rgba(52, 211, 153, 0.14);
   --warn: #FBBF24;
@@ -83,12 +83,12 @@
   --danger: #F87171;
   --danger-light: rgba(248, 113, 113, 0.12);
 
-  --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 8px 48px rgba(0, 0, 0, 0.55);
+  --shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 8px 48px rgba(0, 0, 0, 0.65);
 
-  --band: #0C0E18;
-  --band-text: #ECEAF4;
-  --band-muted: rgba(236, 234, 244, 0.55);
+  --band: #0E0D0B;
+  --band-text: #EDEAE4;
+  --band-muted: rgba(237, 234, 228, 0.55);
   --band-card: rgba(255, 255, 255, 0.04);
   --band-card-border: rgba(255, 255, 255, 0.08);
 }
@@ -96,8 +96,8 @@
 /* avoid a flash of un-themed content before JS runs in dark OS */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
-    --bg: #121420; --surface: #1B1E2E; --surface2: #252939;
-    --border: #2F3447; --text: #ECEAF4; --text-muted: #9A98AC;
-    --accent: #EF8A4C;
+    --bg: #141312; --surface: #1E1C1A; --surface2: #282421;
+    --border: #332E2A; --text: #EDEAE4; --text-muted: #978F87;
+    --accent: #D97540;
   }
 }

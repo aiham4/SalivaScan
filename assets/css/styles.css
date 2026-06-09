@@ -236,7 +236,8 @@ nav {
 a.topic-row:hover { background: var(--surface); margin-inline: calc(-1 * var(--sp-3)); padding-inline: var(--sp-3); border-radius: var(--radius-sm); }
 .topic-num { font-size: 0.78rem; color: var(--text-muted); font-variant-numeric: tabular-nums; padding-top: 3px; }
 .topic-body { min-width: 0; }
-.topic-title { font-family: var(--font-display); font-size: 1.15rem; margin-bottom: 4px; line-height: 1.3; }
+.topic-body { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.topic-title { font-family: var(--font-display); font-size: 1.15rem; line-height: 1.3; }
 .topic-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
 .topic-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; padding-top: 3px; flex-shrink: 0; }
 .topic-cat { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.07em; color: var(--text-muted); font-weight: 600; }

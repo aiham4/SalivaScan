@@ -2,7 +2,7 @@
 
 A client-side web prototype for non-invasive Type 2 diabetes screening from ATR-FTIR saliva spectra, built as part of the Multi-Disciplinary CBL course at TU/e (2025–2026).
 
-**Live site:** https://cbl.aiham.nl
+**Live site:** https://salivascan.nl
 
 ---
 

@@ -48,7 +48,7 @@ The full pipeline runs client-side:
 
 ## Languages
 
-English, Dutch, Spanish, Catalan, Portuguese, Arabic (RTL), Turkish.
+English, Dutch, Spanish, Catalan, Portuguese, Arabic, Turkish.
 
 ## Running locally
 

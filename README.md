@@ -1,57 +1,61 @@
-# SalivaScan website
+# SalivaScan - 4CBLW010 Group 5
 
-Restructured from the old single `index.html` into organised files so we
-can edit content, check translations, and add pages without touching the logic.
+A client-side web prototype for non-invasive Type 2 diabetes screening from ATR-FTIR saliva spectra, built as part of the Multi-Disciplinary CBL course at TU/e (2025–2026).
 
-## Structure
+**Live site:** https://cbl.aiham.nl
+
+---
+
+## What it does
+
+A user uploads a raw ATR-FTIR saliva spectrum (CSV or JSON). The browser preprocesses the spectrum and runs it through a trained neural network model, returning a risk classification and confidence score. No data is sent to any server - all computation runs locally in the browser.
+
+## How it works
+
+The full pipeline runs client-side:
+
+1. **Preprocessing** (`normalize.js`) - ALS baseline correction → Standard Normal Variate normalisation → Savitzky–Golay smoothing (poly=3, window=11), reproducing the pipeline described in the report.
+2. **Inference** (`analyzer.js`) - the preprocessed 3,736-point spectrum is passed to the ONNX model via ONNX Runtime Web (WebAssembly).
+3. **Classification** - scores ≥ 0.60 are labelled elevated risk; scores below are labelled low risk. A confidence percentage shows how far the score is from the threshold.
+
+## Model
+
+`ann_pls_normalized.onnx` - the ANN+PLS model trained on the normalised dataset, selected as the best-performing model in the report (average recall 0.920, average F1 0.922 over 16 randomised trials).
+
+## Repository structure
 
 ```
-salivascan/
-├── index.html                  Main page (tool + how + learn cards)
-├── CNAME                        Custom domain
-├── ann_optuna.onnx             ← ADD THIS: your exported model (not included)
+├── index.html                  Main page
+├── about.html                  Team and project description
+├── ann_pls_normalized.onnx     Exported model
 ├── assets/
-│   ├── css/
-│   │   ├── tokens.css          Colours + light/dark themes. Edit colours HERE only.
-│   │   └── styles.css          Layout + components (responsive, RTL).
+│   ├── css/                    Styling (tokens + layout)
 │   ├── js/
-│   │   ├── config.js           ⚙ Model contract + languages + theme. Edit this first.
-│   │   ├── theme.js            Light/dark toggle.
-│   │   ├── i18n.js             Translation engine (no fetch, works offline).
-│   │   ├── analyzer.js         File parsing + model load (with progress) + inference.
-│   │   └── main.js             Boot.
-│   └── locales/                One file per language — translators edit these.
-│       ├── en.js  (reference)  nl.js  es.js  pt.js  ar.js  tr.js
+│   │   ├── config.js           Model parameters and language configuration
+│   │   ├── normalize.js        Client-side preprocessing pipeline
+│   │   ├── analyzer.js         File parsing, model loading, inference
+│   │   ├── content.js          Article and resource definitions
+│   │   ├── i18n.js             Translation engine
+│   │   └── main.js             Page initialisation
+│   └── locales/                One translation file per language
+│       en.js  nl.js  es.js  ca.js  pt.js  ar.js  tr.js
 └── learn/
     ├── index.html              Learn hub
-    ├── what-is-diabetes.html   Article (template — clone for new topics)
-    ├── why-saliva.html         Article
-    └── resources.html          Curated videos + article links (edit freely)
+    ├── what-is-diabetes.html   Background article
+    ├── why-saliva.html         ATR-FTIR and spectroscopy article
+    └── resources.html          Curated references and links
 ```
 
-## To deploy
-1. Drop your exported model in the root as `ann_optuna.onnx`.
-2. Push everything to the GitHub Pages repo.
+## Languages
 
-## To change the model
-Edit only `assets/js/config.js → model`. If Deniz re-exports, update
-`inputName`, `outputName`, `inputLength`, `threshold` there. Nothing else changes.
+English, Dutch, Spanish, Catalan, Portuguese, Arabic (RTL), Turkish.
 
-## To check / fix a translation
-Open `assets/locales/<lang>.js`. Each value sits on its own line next to its key.
-Compare against `en.js`. Put your name in the `review` comment at the top once checked.
-English is always the fallback, so a missing key never breaks the page.
+## Running locally
 
-## To add a language
-1. Copy `en.js` → `xx.js`, translate the values.
-2. Add `{ code:'xx', label:'XX', rtl:false }` to `config.js → languages`.
-3. Add `<script src="assets/locales/xx.js"></script>` before `i18n.js` in every HTML file.
+Opening `index.html` directly via `file://` may block the model from loading in some browsers. To run locally:
 
-## To add a Learn article
-Copy `learn/what-is-diabetes.html`, replace the text inside `<main class="article">`,
-and link it from `learn/index.html`.
+```
+python3 -m http.server
+```
 
-## Local testing note
-Opening `index.html` directly (file://) may block the model download in some
-browsers. Run a quick local server instead:  `python3 -m http.server`  then open
-`http://localhost:8000`. On GitHub Pages it just works.
+Then open `http://localhost:8000`.

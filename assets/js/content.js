@@ -159,6 +159,19 @@ window.SS_CONTENT = {
         tr: 'Veri setinin dayandığı çalışma: 1.000 katılımcıyla LDA/KNN/SVM/ANN yöntemleri, diyabetik ve sağlıklı sınıflandırması için tükürük ATR-FTIR spektrumları üzerinde karşılaştırılmıştır.'
       }
     },
+   {
+     type: 'data',
+     title: 'ATR-FTIR Saliva Dataset for Type 2 Diabetes (SEDENA, Mexico)',
+     url: 'https://doi.org/10.6084/m9.figshare.19450916.v1',
+     desc: {
+       en: '1,040 ATR-FTIR saliva spectra (540 diabetic, 500 control) collected at SEDENA, Mexico. The primary dataset for this project. Sanchez-Brito et al., 2022.',
+       nl: '1.040 ATR-FTIR-speekselspectra (540 diabetisch, 500 controle) verzameld bij SEDENA, Mexico. De primaire dataset van dit project. Sanchez-Brito et al., 2022.',
+       es: '1.040 espectros de saliva ATR-FTIR (540 diabéticos, 500 control) recopilados en SEDENA, México. El conjunto de datos principal de este proyecto. Sanchez-Brito et al., 2022.',
+       pt: '1.040 espetros de saliva ATR-FTIR (540 diabéticos, 500 controlo) recolhidos no SEDENA, México. O conjunto de dados principal deste projeto. Sanchez-Brito et al., 2022.',
+       ar: '1,040 طيفًا للعاب بتقنية ATR-FTIR (540 مصابًا بالسكري، 500 ضابط) من SEDENA، المكسيك. مجموعة البيانات الرئيسية لهذا المشروع. Sanchez-Brito وآخرون، 2022.',
+       tr: 'SEDENA, Meksika\'da toplanan 1.040 ATR-FTIR tükürük spektrumu (540 diyabetik, 500 kontrol). Bu projenin temel veri kümesi. Sanchez-Brito vd., 2022.'
+     }
+   },
     /* ── add new resources here ──────────────────────────────────────────── */
   ],
 

@@ -1,0 +1,146 @@
+from NNBase import NNBase
+import os
+import sys
+import copy
+import torch
+import torch.nn as nn
+import torch.optim as optim
+from torch.utils.data import DataLoader, TensorDataset
+import optuna
+from sklearn.decomposition import PCA
+from sklearn.model_selection import train_test_split
+from sklearn.utils import shuffle
+from sklearn.cross_decomposition import PLSRegression
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.model_selection import StratifiedKFold
+from skl2onnx import to_onnx
+from skl2onnx import convert_sklearn
+from skl2onnx.common.data_types import FloatTensorType
+from skl2onnx.algebra.onnx_ops import OnnxSub, OnnxMatMul, OnnxDiv
+import onnx
+from onnx import compose, version_converter
+import argparse
+
+class ANN(nn.Module):
+    def __init__(self, hidden_layer_sizes: list, hidden_layer_functions: list, n_components):
+        super().__init__()
+
+        layers = [
+            nn.Linear(n_components, hidden_layer_sizes[0]),
+        ]
+
+        hidden_layer_sizes.append(1)
+        for i in range(len(hidden_layer_functions)):
+            layers.append(hidden_layer_functions[i])
+            layers.append(nn.Linear(hidden_layer_sizes[i], hidden_layer_sizes[i+1]))
+        layers.append(nn.Sigmoid())
+
+        layers = [x for x in layers if x is not None]
+        self.model = nn.Sequential(*layers)
+
+    def forward(self, x):
+        return self.model(x)
+
+class AnnPcaModel(NNBase):
+    def __init__(self):
+        super().__init__('ann_pca')
+    
+
+    def gen_model(self):
+        if self.trial is not None:
+            n_components = self.trial.suggest_int('n_components', 6, 32)
+            hidden_layer_cnt = self.trial.suggest_int('layer_cnt', 1, 3)
+            hidden_layer_sizes = [self.trial.suggest_int(f'layer_{i}_nodes', 1, 1000) for i in range(hidden_layer_cnt)]
+            hidden_layer_functions = [self.activation_functions[self.trial.suggest_int(f'layer_{i}_function', 0, len(self.activation_functions) - 1)] for i in range(hidden_layer_cnt)]
+            return ANN(hidden_layer_sizes, hidden_layer_functions, n_components)
+        else:
+            n_components = self.study.best_params['n_components']
+            hidden_layer_cnt = self.study.best_params['layer_cnt']
+            hidden_layer_sizes = [self.study.best_params[f'layer_{i}_nodes'] for i in range(hidden_layer_cnt)]
+            hidden_layer_functions = [self.activation_functions[self.study.best_params[f'layer_{i}_function']] for i in range(hidden_layer_cnt)]
+            return ANN(hidden_layer_sizes, hidden_layer_functions, n_components)
+        
+    def gen_reducer(self, X, y):
+        if self.trial is not None:
+            reducer = PCA(n_components=self.trial.suggest_int('n_components', 6, 32))
+            reducer.fit(X)
+            return reducer
+        else:
+            reducer = PCA(n_components=self.study.best_params['n_components'])
+            reducer.fit(X)
+            return reducer
+        
+    def export_reducer(self, reducer):
+        mean = reducer.mean_
+        rot = reducer.components_.T
+
+        sub = OnnxSub("input", mean.astype(np.float32))
+        output = OnnxMatMul(sub, rot.astype(np.float32), output_names=['output'])
+
+        onnx_model = output.to_onnx(
+            inputs=[("input", FloatTensorType([rot.shape[0]]))],
+            outputs=[("output", FloatTensorType([rot.shape[1]]))],
+        )
+
+        with open(f"{self.name}_reducer.onnx", "wb") as f:
+            f.write(onnx_model.SerializeToString())
+
+        # Merge
+
+        pls_onnx = onnx.load(f"{self.name}_reducer.onnx")
+        ann_onnx = onnx.load(f"{self.name}.onnx")
+        pls_onnx.ir_version = 10
+        
+        merged = compose.merge_models(
+            pls_onnx,
+            ann_onnx,
+            io_map=[
+                ("output", "input")
+            ]
+        )
+
+        os.remove(f"{self.name}_reducer.onnx")
+        os.remove(f"{self.name}.onnx")
+        onnx.save(merged, f"{self.name}.onnx")
+
+# Dataset
+
+control = pd.read_csv('data/control.csv')
+type2 = pd.read_csv('data/type2.csv')
+
+X = type2[type2.columns.drop(['GENDER', 'AGE', 'HEMOGLOBIN', 'GLUCOSE'])].astype('float').to_numpy(copy=True)
+y = np.ones(X.shape[0])
+X = np.vstack((X, control[control.columns.drop(['GENDER', 'AGE'])].astype('float').to_numpy(copy=True)))
+y = np.append(y, np.zeros(control.shape[0]))
+
+# Model
+
+model = AnnPcaModel()
+
+# Args
+
+parser = argparse.ArgumentParser()
+parser.add_argument('-e', '--export', required=False, action='store_true')
+parser.add_argument('-i', '--info', required=False, action='store_true')
+parser.add_argument('-n', required=False, default=100, type=int)
+args = vars(parser.parse_args())
+
+if args['export'] == True:
+    model.export(X, y)
+    exit(0)
+
+if args['info'] == True:
+    with open(f"{model.name}.txt", "w") as f:
+        f.write(f'Cross MSE: {model.study.best_value}\n')
+        f.write(f'Best params: {model.study.best_params}\n\n')
+        f.write(str(model.confusion_matrix(model.gen_model().to(model.device), X, y)))
+    exit(0)
+
+model.optimize(X, y, args['n'] if args['n'] >= 0 else None)
+
+print(model.study.best_params)
+print(model.study.best_value)
+print(model.confusion_matrix(model.gen_model().to(model.device), X, y))
+model.export(X, y)

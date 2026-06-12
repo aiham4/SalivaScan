@@ -1,0 +1,3 @@
+[submodule "src/Augmentation/EMSA"]
+	path = src/Augmentation/EMSA
+	url = https://github.com/BioSpecNorway/EMSA.git
